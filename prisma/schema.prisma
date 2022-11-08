@@ -7,9 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
   name  String?
+}
+
+model Quiz {
+  id Int @id @default(autoincrement())
+  // 1 to N relationship with Question
+}
+
+model Question {
+  id Int @id @default(autoincrement())
+}
+
+model Response {
+  id Int @id @default(autoincrement())
+}
+
+model Result {
+  id Int @id @default(autoincrement())
 }
