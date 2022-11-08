@@ -31,6 +31,11 @@ model Option {
   option_text String
 }
 
+model Answer {
+  id  String @default(uuid()) @unique @id
+  abswer_text String
+}
+
 model Response {
   id  String @default(uuid()) @unique @id
 }
