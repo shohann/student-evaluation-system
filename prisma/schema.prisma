@@ -15,7 +15,6 @@ model User {
 
 model Quiz {
   id Int @id @default(autoincrement())
-  // 1 to N relationship with Question
 }
 
 model Question {
