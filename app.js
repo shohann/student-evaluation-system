@@ -6,6 +6,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(3001, () => {    
-    console.log(`Running Express Server`);
+    console.log(`Running Express Server at 3001`);
 })
 
