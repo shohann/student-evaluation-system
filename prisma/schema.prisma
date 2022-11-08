@@ -15,14 +15,20 @@ model User {
 
 model Quiz {
   id  String @default(uuid()) @unique @id
+  name String
+  questions Question[]
 }
 
 model Question {
   id  String @default(uuid()) @unique @id
+  question_text String
+  quiz Quiz @relation(fields: [quizId], references: [id])
+  quizId String
 }
 
 model Option {
   id  String @default(uuid()) @unique @id
+  option_text String
 }
 
 model Response {
