@@ -11,6 +11,23 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
+app.get('/answers/:quizId', async (req, res) => {
+    const quizId = req.params.quizId;
+
+    try {
+        const answers = await prisma.answer.findMany({
+            where: {
+              questionId: quizId,
+            },
+          })
+        console.log(answers);
+        res.send(answers)
+    } catch(error) {
+        console.log(error);
+        res.send(error);
+    }
+});
+
 app.post('/quiz', async (req, res) => { 
 
     const { name } = req.body;
