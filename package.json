@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/shohann/student-evaluation-system#readme",
   "dependencies": {
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.6.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "prisma": "^4.5.0"
+    "prisma": "^4.6.1"
   }
 }

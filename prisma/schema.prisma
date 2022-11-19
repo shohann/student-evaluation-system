@@ -24,16 +24,23 @@ model Question {
   question_text String
   quiz Quiz @relation(fields: [quizId], references: [id])
   quizId String
+  options Option[]
+  answer Answer?
 }
 
 model Option {
   id  String @default(uuid()) @unique @id
-  option_text String
+  option String
+  txt String
+  question Question @relation(fields: [questionId], references: [id])
+  questionId String
 }
 
 model Answer {
   id  String @default(uuid()) @unique @id
-  abswer_text String
+  answer_text String
+  question Question @relation(fields: [questionId], references: [id])
+  questionId String @unique
 }
 
 model Response {
