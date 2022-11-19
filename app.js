@@ -17,7 +17,7 @@ app.get('/answers/:quizId', async (req, res) => {
     try {
         const answers = await prisma.answer.findMany({
             where: {
-              questionId: quizId,
+              quizId: quizId,
             },
           })
         console.log(answers);
@@ -62,7 +62,8 @@ app.post('/quiz', async (req, res) => {
         const answer = await prisma.answer.create({
             data: {
                 questionId: question.id,
-                answer_text: req.body.answer
+                answer_text: req.body.answer,
+                quizId: quiz.id
             },
         });
 
