@@ -29,13 +29,22 @@ app.post('/quiz', async (req, res) => {
             },
         });
 
+        const filteredOptionsArray = req.body.options.map((option) => {
+            return {
+                questionId: question.id,
+                option: option.option,
+                txt: option.txt
+            }
+        });
+
         const options = await prisma.option.createMany({
-            data: req.body.options,
+            data: filteredOptionsArray,
             skipDuplicates: true, 
         });
 
         const answer = await prisma.answer.create({
             data: {
+                questionId: question.id,
                 answer_text: req.body.answer
             },
         });
@@ -45,8 +54,6 @@ app.post('/quiz', async (req, res) => {
         console.log(error)
         res.send(error);
     };
-
-
 });
 
 app.listen(3001, () => {    
