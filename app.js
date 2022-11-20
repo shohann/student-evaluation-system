@@ -22,12 +22,21 @@ app.post('/response/:quizId', async (req, res) => {
               quizId: quizId,
             },
         });
-
         const answerArray = answers.map(answer => answer.answer_text);
+        const fullMarks = 10;
+        const marksPerQuestion = 5;
+        let actualMarks = 0;
+
+        for (let i = 0; i < response.length; i++) {
+            if (response[i] === answerArray[i]) {
+                actualMarks = actualMarks + marksPerQuestion;
+            }
+        }
 
         res.send({
             response,
-            answerArray
+            answerArray,
+            actualMarks
         });
     } catch(error) {
         console.log(error);
