@@ -1,9 +1,20 @@
 {
-    "name": "Drinking Water",
-    "question_text": "What is this",
-    "options": [
-        { "option": "A", "txt": "Bat" },
-        { "option": "B", "txt": "Ball" }
-    ],
-    "answer": "A"
+    "quiz": [
+        {
+            "question_text": "What is this",
+            "options": [
+                { "option": "A", "txt": "Bat" },
+                { "option": "B", "txt": "Ball" }
+            ],
+            "answer": "A"
+        },
+        {
+            "question_text": "What is this",
+            "options": [
+                { "option": "A", "txt": "Bat" },
+                { "option": "B", "txt": "Ball" }
+            ],
+            "answer": "B"
+        }
+    ]
 }
