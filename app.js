@@ -11,6 +11,31 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
+// Response
+app.post('/response/:quizId', async (req, res) => {
+    const quizId = req.params.quizId;
+    const response = req.body.response;
+
+    try {
+        const answers = await prisma.answer.findMany({
+            where: {
+              quizId: quizId,
+            },
+        });
+
+        const answerArray = answers.map(answer => answer.answer_text);
+
+        res.send({
+            response,
+            answerArray
+        });
+    } catch(error) {
+        console.log(error);
+        res.send(error);
+    }
+
+});
+
 app.get('/answers/:quizId', async (req, res) => {
     const quizId = req.params.quizId;
 
@@ -20,7 +45,6 @@ app.get('/answers/:quizId', async (req, res) => {
               quizId: quizId,
             },
           })
-        console.log(answers);
         res.send(answers)
     } catch(error) {
         console.log(error);
