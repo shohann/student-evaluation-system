@@ -61,6 +61,39 @@ app.get('/answers/:quizId', async (req, res) => {
     }
 });
 
+app.post('/quiz/add/:quizId', async (req, res) => {
+    const quizId = req.params.quizId;
+    const quiz = req.body.quiz;
+    const quizOptions = quiz.map(options => options.options)
+
+    try {
+        const questions = quiz.map(question => question.question_text);
+        console.log(quizOptions );
+
+        console.log('\n');
+
+        for (let i = 0; i < quizOptions.length; i++) {
+            console.log(quizOptions[i])
+        }
+
+        const optionsObject = quiz.map(function(r) {
+            return r.map(function(col) {
+                return col
+            })
+        })
+
+        console.log(optionsObject)
+
+        res.send({
+            questions,
+            quizOptions
+        })
+    } catch(error) {
+    console.log(error);
+    res.send(error);
+    }
+});
+
 app.post('/quiz', async (req, res) => { 
 
     const { name } = req.body;

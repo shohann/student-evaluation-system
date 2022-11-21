@@ -9,10 +9,10 @@
             "answer": "A"
         },
         {
-            "question_text": "What is this",
+            "question_text": "What animal is this",
             "options": [
-                { "option": "A", "txt": "Bat" },
-                { "option": "B", "txt": "Ball" }
+                { "option": "A", "txt": "Kutta" },
+                { "option": "B", "txt": "Shuyar" }
             ],
             "answer": "B"
         }
