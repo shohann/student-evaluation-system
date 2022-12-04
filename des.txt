@@ -1,0 +1,26 @@
+// localhost:3001/quiz/add/eeb9f5ae-ff2c-436d-96df-703b85b77ebe
+
+{
+    "quiz": [
+        {
+            "question_text": "What is this", // QuizId and QuestionId
+            "options": [
+                { "option": "A", "txt": "Bat" }, // QuestionId
+                { "option": "B", "txt": "Ball" }
+            ],
+            "answer": "A" // QuizId and QuestionId
+        },
+        {
+            "question_text": "What animal is this",
+            "options": [
+                { "option": "A", "txt": "Kutta" },
+                { "option": "B", "txt": "Shuyar" }
+            ],
+            "answer": "B"
+        }
+    ]
+}
+const questionsWithId = [
+    { id: "76f43cff-1b0a-4908-9105-68af808f49f1", question_text: "What animal is this" },
+    { id: "830561c3-983d-4316-b84e-d3fa3da4c36b", question_text: "What is this" }
+];

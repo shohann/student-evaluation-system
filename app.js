@@ -4,6 +4,11 @@ const { PrismaClient } = require('@prisma/client');
 const app = express();
 const prisma = new PrismaClient;
 
+const questionsWithId = [
+    { id: "76f43cff-1b0a-4908-9105-68af808f49f1", question_text: "What animal is this" },
+    { id: "830561c3-983d-4316-b84e-d3fa3da4c36b", question_text: "What is this" }
+];
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -64,29 +69,45 @@ app.get('/answers/:quizId', async (req, res) => {
 app.post('/quiz/add/:quizId', async (req, res) => {
     const quizId = req.params.quizId;
     const quiz = req.body.quiz;
-    const quizOptions = quiz.map(options => options.options)
+    const quizOptions = quiz.map(options => {
+        const filterdOption = options.options.map(option => {
+            return option // option.id = "jkdsd"
+        })
+        return options.options
+    });
+    const quizAnswers = quiz.map(answer => {
+        return answer.answer
+    })
 
     try {
-        const questions = quiz.map(question => question.question_text);
-        console.log(quizOptions );
+        // const questions = quiz.map(question => question.question_text);
+        // console.log(quizOptions);
 
         console.log('\n');
 
+        let array = [];
+        let ansArray = []
+
         for (let i = 0; i < quizOptions.length; i++) {
-            console.log(quizOptions[i])
+            for (let j = 0; j < quizOptions.length; j++) {
+                quizOptions[i][j].id = questionsWithId[i].id
+                array.push(quizOptions[i][j]);
+            }
         }
 
-        const optionsObject = quiz.map(function(r) {
-            return r.map(function(col) {
-                return col
-            })
-        })
+        for (let i = 0; i < quizAnswers.length; i++) {
+            ansArray.push(
+                { quizId: quizId, questionId: questionsWithId[i].id, ans: quizAnswers[i]}
+            )
+        }
 
-        console.log(optionsObject)
+        console.log(array);
+        console.log(ansArray);
+
+        // console.log(questionsWithId);
 
         res.send({
-            questions,
-            quizOptions
+            array
         })
     } catch(error) {
     console.log(error);
