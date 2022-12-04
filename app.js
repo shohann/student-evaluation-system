@@ -16,6 +16,79 @@ app.get('/', (req, res) => {
     res.send('Hello');
 });
 
+// Quiz details with DB
+app.post('/db/quiz/add/:quizId', async (req, res) => {
+    const quizId = req.params.quizId;
+    const quiz = req.body.quiz;
+
+    try {
+        // const filterQuestionTexts = quiz.map(question => question.question_text); // Question Text
+        const filterQuestionTexts = quiz.map(question => {
+            return {
+                question_text: question.question_text,
+                quizId: quizId
+            }
+        }); // Question Text
+        console.log(filterQuestionTexts);
+
+        const createQuestions = await prisma.question.createMany({
+            data: filterQuestionTexts,
+        });
+
+        const questions = await prisma.question.findMany({ where: { quizId: quizId }})
+
+        console.log(questions);
+
+        let options = []; // options array
+        let answers = [] // answer array
+
+        // Options array
+        const quizOptions = quiz.map(options => {
+            const filterdOption = options.options.map(option => {
+                return option // option.id = "jkdsd"
+            })
+            return options.options
+        });
+        
+
+        for (let i = 0; i < quizOptions.length; i++) {
+            for (let j = 0; j < quizOptions.length; j++) {
+                quizOptions[i][j].questionId = questions[i].id
+                options.push(quizOptions[i][j]);
+            }
+        }
+        console.log(options);
+
+        const optionsDB = await prisma.option.createMany({
+            data: options,
+        });
+
+        // Answers array
+        const quizAnswers = quiz.map(answer => {
+            return answer.answer
+        });
+
+        for (let i = 0; i < quizAnswers.length; i++) {
+            answers.push(
+                { quizId: quizId, questionId: questions[i].id, answer_text: quizAnswers[i]}
+            )
+        }
+        console.log(answers);
+
+        const answersDB = await prisma.answer.createMany({
+            data: answers,
+        });
+
+        res.send({
+            questions: questions,
+            quizId : quizId,
+            quiz: quiz
+        })
+    } catch(error) {
+        res.send(error);
+    };
+});
+
 // Response
 app.post('/response/:quizId', async (req, res) => {
     const quizId = req.params.quizId;
@@ -66,6 +139,7 @@ app.get('/answers/:quizId', async (req, res) => {
     }
 });
 
+// Main
 app.post('/quiz/add/:quizId', async (req, res) => {
     const quizId = req.params.quizId;
     const quiz = req.body.quiz;
@@ -77,16 +151,13 @@ app.post('/quiz/add/:quizId', async (req, res) => {
     });
     const quizAnswers = quiz.map(answer => {
         return answer.answer
-    })
+    });
+
 
     try {
-        // const questions = quiz.map(question => question.question_text);
-        // console.log(quizOptions);
-
-        console.log('\n');
-
-        let array = [];
-        let ansArray = []
+        const questions = quiz.map(question => question.question_text); // Question Text
+        let array = []; // options array
+        let ansArray = [] // answer array
 
         for (let i = 0; i < quizOptions.length; i++) {
             for (let j = 0; j < quizOptions.length; j++) {
@@ -101,6 +172,7 @@ app.post('/quiz/add/:quizId', async (req, res) => {
             )
         }
 
+        console.log(questions);
         console.log(array);
         console.log(ansArray);
 
@@ -114,6 +186,24 @@ app.post('/quiz/add/:quizId', async (req, res) => {
     res.send(error);
     }
 });
+
+// Main
+app.post('/create', async (req, res, next) => {
+    const { name } = req.body;
+
+    try {
+        const quiz = await prisma.quiz.create({
+            data: {
+                name: name
+            },
+        });
+        res.status(200).send(quiz);
+    } catch(error) {
+        res.send(error);
+    }
+
+    res.status(200).send('works');
+})
 
 app.post('/quiz', async (req, res) => { 
 
