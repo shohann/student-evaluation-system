@@ -1,15 +1,66 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
+const path = require('path'); 
 
 const app = express();
 const prisma = new PrismaClient;
+const user = {
+ name: "Shohanur Rahman",
+ id: 822
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {    
-    res.send('Hello');
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
+// app.get('/', (req, res) => { 
+//     res.render('index', user);
+// });
+
+//login page route
+app.get('/', (req,res)=>{
+    res.render(path.join(__dirname, 'views/login.ejs'), {url: '/login'});
+})
+  
+// login handler route
+app.post('/login', (req,res)=>{
+    const {email, password} = req.body;
+      
+    findUser(email, password) ?
+        // if user is registered
+        // generate a dynamic url
+        // redirect to user
+        res.redirect(301, `/dashboard/${email}`) :
+        res.status(401).end();
+  
 });
+  
+// dashboard route
+app.get('/dashboard/:email', (req, res)=>{
+    const {email} = req.params;
+    res.render(path.join(__dirname, 'views/dashboard.ejs'), {email: email})
+});
+  
+// damy user db
+const users = [
+    {
+        name: "Raktim Banerjee",
+        email: "raktim@email.com",
+        password: "Raktim"
+    },
+    {
+        name: "Arpita Banerjee",
+        email: "arpita@email.com",
+        password :"Arpita"
+    }
+];
+  
+// find user 
+const findUser = (email, password)=> users.some(user => 
+      user.email === email && user.password === password 
+)
 
 // Quiz details with DB
 app.post('/db/quiz/add/:quizId', async (req, res) => {
