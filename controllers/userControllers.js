@@ -19,3 +19,12 @@ module.exports.signUp = async (req, res) => {
 
     }
 }
+
+module.exports.signIn = async (req, res) => {
+    try {
+        res.send('Success');
+    } catch(error) {
+        console.log(error);
+        res.send(error);
+    }
+}
