@@ -1,7 +1,7 @@
 const { user } = require('../utils/dbInit');
 
 
-module.exports.signUp = async (req, res) => {
+module.exports.signUpPost = async (req, res) => {
     try {
         const newUser = await user.create({
             data: {
@@ -10,8 +10,7 @@ module.exports.signUp = async (req, res) => {
               name: req.body.password,
             },
         });
-
-        res.send(newUser);
+        res.redirect('success');
 
     } catch(error) {
         console.log(error);
@@ -20,9 +19,9 @@ module.exports.signUp = async (req, res) => {
     }
 }
 
-module.exports.signIn = async (req, res) => {
+module.exports.signUpGet = async (req, res) => {
     try {
-        res.send('Success');
+        res.render('signup');
     } catch(error) {
         console.log(error);
         res.send(error);
