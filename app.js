@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 // });
 
 //login page route
-app.get('/', (req,res)=>{
+app.get('/', (req,res) => {
     res.render(path.join(__dirname, 'views/login.ejs'), {url: '/login'});
 })
   
