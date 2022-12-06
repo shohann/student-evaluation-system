@@ -24,3 +24,11 @@ const questionsWithId = [
     { id: "76f43cff-1b0a-4908-9105-68af808f49f1", question_text: "What animal is this" },
     { id: "830561c3-983d-4316-b84e-d3fa3da4c36b", question_text: "What is this" }
 ];
+
+//////////////////////////////////
+
+localhost:3001/response/92d61e68-f9d3-410b-8462-b2b20fe5197f
+
+{
+    "response": ["A", "B"]
+}
