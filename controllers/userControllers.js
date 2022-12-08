@@ -1,6 +1,5 @@
 const { user } = require('../utils/dbInit');
 
-
 module.exports.signUpPost = async (req, res) => {
     try {
         const newUser = await user.create({

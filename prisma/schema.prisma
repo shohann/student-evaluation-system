@@ -12,6 +12,37 @@ model User {
   email String  @unique
   name  String?
   role  Role @default(STUDENT)
+
+  // if he is a student then he can have many results
+  // user can have many group membership
+  group_membership Group_membership[]
+  result Result[]
+}
+
+model Group {
+  id String @default(uuid()) @unique @id
+  // can have many members
+  // can have many/one admin -> adminId[] -> group admin
+  // a group can have many quizes
+  group_membership Group_membership[]
+  
+  
+}
+
+model Group_membership {
+  // id  String @default(uuid()) @unique @id
+
+  // User Id -> one to one
+  // group id 
+  // user type -> could be enum
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+
+  group Group @relation(fields: [groupId], references: [id])
+  groupId String
+
+  @@id([userId, groupId]) // composite
 }
 
 model Quiz {
@@ -19,7 +50,21 @@ model Quiz {
   name String
   questions Question[]
   answers Answer[]
+
+  // A quiz has many results
+  // has one category
+  // can have many result
+  // negative marks
+  // full marks
+  // pass marks
 }
+
+model Category {
+  id  String @default(uuid()) @unique @id
+  category_name String // can be a Enum
+}
+
+
 
 model Question {
   id  String @default(uuid()) @unique @id
@@ -47,12 +92,17 @@ model Answer {
   quizId String
 }
 
-model Response {
-  id  String @default(uuid()) @unique @id
-}
-
 model Result {
   id  String @default(uuid()) @unique @id
+
+  // quiz id 
+  // student Id -> user Id -> might duplicate
+  // Group Id
+  // marks
+  // negativity
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
 }
 
 enum Role {
