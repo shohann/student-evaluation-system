@@ -21,6 +21,7 @@ model User {
 
 model Group {
   id String @default(uuid()) @unique @id
+  name String
   // can have many members
   // can have many/one admin -> adminId[] -> group admin
   // a group can have many quizes

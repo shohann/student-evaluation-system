@@ -12,6 +12,11 @@ app.set('view engine', 'ejs');
 
 app.use('/api', userRoute);
 
+app.get('/groups/', async (req, res) => {
+    const grp = await prisma.user.findMany();
+    res.send(grp);
+});
+
 
 
 
