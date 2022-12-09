@@ -1,9 +1,21 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient;
-const { Membership }= require('../utils/dbInit')
+const { User, 
+        Group, 
+        GroupMembership } = require('../utils/dbInit')
+
+// Create group (Teacher's only)
+const createGroup = async (groupName) => {
+    const newGroup = await Group.create({
+        data: {
+          name: groupName,
+        },
+    });
+    console.log(newGroup)
+};
+
+createGroup('JS-1')
 
 const getMemberById = async (studentId, groupId) => {
-    const member = await prisma.group_membership.findFirst({
+    const member = await GroupMembership.findFirst({
         where: {
             AND: 
                 {
@@ -25,7 +37,7 @@ const getMemberById = async (studentId, groupId) => {
 
 
 const getGroupMembers = async (groupId) => {
-    const members = await prisma.group_membership.findMany({
+    const members = await GroupMembership.findMany({
         where: {
           groupId: groupId
         },
@@ -40,7 +52,7 @@ const getGroupMembers = async (groupId) => {
 // getGroupMembers('82e6c2c3-d60a-4cfc-8b20-0889b2c05919');
 
 const getAllGroupsByMemberId = async (studentId) => {
-    const groups = await Membership.findMany({
+    const groups = await GroupMembership.findMany({
         where: {
           userId: studentId
         },
@@ -52,7 +64,7 @@ const getAllGroupsByMemberId = async (studentId) => {
     console.log(groups);
 }
 
-getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
+// getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
 
 
 
@@ -62,21 +74,14 @@ getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
 // const users = await prisma.user.findMany({
 //     where: {
 //       OR: [
-//         {
-//           name: {
-//             startsWith: 'E',
-//           },
+
+// Because of the return keyword this gave me a 'Promise pending'.But it works fine with console.log
+// I ran with node file.js -> not act as server here
+// const createGroup = async (groupName) => {
+//     const newGroup = await Group.create({
+//         data: {
+//           name: groupName,
 //         },
-//         {
-//           AND: {
-//             profileViews: {
-//               gt: 0,
-//             },
-//             role: {
-//               equals: 'ADMIN',
-//             },
-//           },
-//         },
-//       ],
-//     },
-//   })
+//     });
+//     return newGroup
+// };

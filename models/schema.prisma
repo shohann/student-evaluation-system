@@ -32,11 +32,12 @@ model Group {
 
 model Group_membership {
   // id  String @default(uuid()) @unique @id
-
   // User Id -> one to one
   // group id 
   // user type -> could be enum
 
+  creator Boolean @default(false)
+  
   user User @relation(fields: [userId], references: [id])
   userId String
 
