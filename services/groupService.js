@@ -1,4 +1,4 @@
-const { GroupMembership } = require('../utils/dbInit')
+const { GroupMembership, Group } = require('../utils/dbInit')
 
 // Create group (Teacher's only)
 const createGroup = async (groupName) => {
@@ -12,8 +12,15 @@ const createGroup = async (groupName) => {
 
 createGroup('JS-1')
 
+
+
 const deleteGroup = async (groupId) => {
     // first delete all membership then delete the group
+    const deletedGroup = await Group.delete({
+        where: {
+            groupId: groupId
+        }
+    })
 }
 
 
@@ -22,7 +29,7 @@ const deleteGroup = async (groupId) => {
 
 //////////////////////////////////////////
 
-const getMemberById = async (studentId, groupId) => {
+const fetchMemberById = async (studentId, groupId) => {
     const member = await GroupMembership.findFirst({
         where: {
             AND: 
@@ -44,7 +51,7 @@ const getMemberById = async (studentId, groupId) => {
 // getMemberById('8591c963-3774-4d82-a0e1-ba9bc2d06b91', '82e6c2c3-d60a-4cfc-8b20-0889b2c05919');
 
 
-const getGroupMembers = async (groupId) => {
+const fetchGroupMembers = async (groupId) => {
     const members = await GroupMembership.findMany({
         where: {
           groupId: groupId
@@ -59,7 +66,7 @@ const getGroupMembers = async (groupId) => {
 
 // getGroupMembers('82e6c2c3-d60a-4cfc-8b20-0889b2c05919');
 
-const getAllGroupsByMemberId = async (studentId) => {
+const fetchAllGroupsByMemberId = async (studentId) => {
     const groups = await GroupMembership.findMany({
         where: {
           userId: studentId

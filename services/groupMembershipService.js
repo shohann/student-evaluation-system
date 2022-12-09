@@ -30,7 +30,7 @@ const fetchStudentMemberShip = async (userId, groupId) => [
 
 ];
 
-const deleteStudentMembership = async (userId, groupId) => {
+const deleteSingleStudentMembership = async (userId, groupId) => {
     const deletedGroupMember = await GroupMembership.delete({
         where: {
             userId_groupId: {
@@ -44,8 +44,16 @@ const deleteStudentMembership = async (userId, groupId) => {
     console.log(deletedGroupMember);
 };
 
-// deleteStudentMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de')
+// deleteSingleStudentMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de')
 
+const deleteAllGroupMembershipByGroupId = async (groupId) => {
+    const deletedMembers = await GroupMembership.deleteMany({
+        where: {
+            groupId: groupId,
+        }
+    });
+    console.log(deletedMembers)
+};
 
 // composite key
 // https://flaviocopes.com/prisma-multiple-fields-unique-key/
