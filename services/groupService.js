@@ -1,6 +1,4 @@
-const { User, 
-        Group, 
-        GroupMembership } = require('../utils/dbInit')
+const { GroupMembership } = require('../utils/dbInit')
 
 // Create group (Teacher's only)
 const createGroup = async (groupName) => {
