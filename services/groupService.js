@@ -12,6 +12,16 @@ const createGroup = async (groupName) => {
 
 createGroup('JS-1')
 
+const deleteGroup = async (groupId) => {
+    // first delete all membership then delete the group
+}
+
+
+
+
+
+//////////////////////////////////////////
+
 const getMemberById = async (studentId, groupId) => {
     const member = await GroupMembership.findFirst({
         where: {
@@ -63,6 +73,14 @@ const getAllGroupsByMemberId = async (studentId) => {
 }
 
 // getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
+
+
+
+
+
+
+
+
 
 
 
