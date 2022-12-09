@@ -1,7 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient;
 
-
 module.exports = prisma;
 module.exports.Membership = prisma.group_membership;
 
