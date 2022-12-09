@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient;
-const { GroupMembership }= require('../utils/dbInit')
+const { Membership }= require('../utils/dbInit')
 
 const getMemberById = async (studentId, groupId) => {
     const member = await prisma.group_membership.findFirst({
@@ -40,7 +40,7 @@ const getGroupMembers = async (groupId) => {
 // getGroupMembers('82e6c2c3-d60a-4cfc-8b20-0889b2c05919');
 
 const getAllGroupsByMemberId = async (studentId) => {
-    const groups = await GroupMembership.findMany({
+    const groups = await Membership.findMany({
         where: {
           userId: studentId
         },
