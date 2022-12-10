@@ -5,7 +5,9 @@ const prisma = new PrismaClient;
 
 const userRoute = require('./routes/userRoute');
 const groupRoute = require('./routes/groupRoute');
-const quizRoute = require('./routes/quizRoute')
+const quizRoute = require('./routes/quizRoute');
+const responseRoute = require('./routes/responseRoute');
+const resultRoute = require('./routes/resultRoute');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +18,8 @@ app.set('view engine', 'ejs');
 app.use('/api', userRoute);
 app.use('/api', groupRoute);
 app.use('/api', quizRoute);
+app.use('/api', responseRoute);
+app.use('/api', resultRoute);
 
 
 
