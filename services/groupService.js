@@ -1,27 +1,55 @@
-const { GroupMembership, Group } = require('../utils/dbInit')
+const { GroupMembership, Group } = require('../utils/dbInit');
+
+module.exports.fetchSingleGroupDetailsById = async (groupId) => {
+    return await Group.findMany({
+        where: {
+            id: groupId,
+        }
+    });
+}
 
 // Create group (Teacher's only)
-const createGroup = async (groupName) => {
-    const newGroup = await Group.create({
+module.exports.createGroup = async (groupName) => {
+    return  await Group.create({
         data: {
           name: groupName,
         },
     });
-    console.log(newGroup)
 };
 
-createGroup('JS-1')
-
-
-
-const deleteGroup = async (groupId) => {
+module.exports.deleteSingleGroupById = async (groupId) => {
     // first delete all membership then delete the group
-    const deletedGroup = await Group.delete({
+    return  await Group.delete({
         where: {
-            groupId: groupId
+            id: groupId
         }
-    })
+    });
 }
+
+
+
+
+
+
+
+///////////////////////////////////////////
+
+// const fetchAllGroupsByMemberId = async (studentId) => {
+//     const groups = await GroupMembership.findMany({
+//         where: {
+//           userId: studentId
+//         },
+//         include: {
+//             group: true,
+//         },
+//     })
+
+//     console.log(groups);
+// }
+
+// getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
+
+
 
 
 
@@ -66,22 +94,22 @@ const fetchGroupMembers = async (groupId) => {
 
 // getGroupMembers('82e6c2c3-d60a-4cfc-8b20-0889b2c05919');
 
-const fetchAllGroupsByMemberId = async (studentId) => {
-    const groups = await GroupMembership.findMany({
-        where: {
-          userId: studentId
-        },
-        include: {
-            group: true,
-        },
-    })
 
-    console.log(groups);
-}
+
+// const fetchAllGroupsByMemberId = async (studentId) => {
+//     const groups = await GroupMembership.findMany({
+//         where: {
+//           userId: studentId
+//         },
+//         include: {
+//             group: true,
+//         },
+//     })
+
+//     console.log(groups);
+// }
 
 // getAllGroupsByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3')
-
-
 
 
 

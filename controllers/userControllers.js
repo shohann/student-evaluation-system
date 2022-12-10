@@ -1,6 +1,6 @@
 const { user } = require('../utils/dbInit');
 
-module.exports.signUpPost = async (req, res) => {
+module.exports.signUp = async (req, res) => {
     try {
         const newUser = await user.create({
             data: {
@@ -20,7 +20,7 @@ module.exports.signUpPost = async (req, res) => {
     }
 }
 
-module.exports.signUpGet = async (req, res) => {
+module.exports.renderSignUp = async (req, res) => {
     try {
         console.log("OK");
         res.render('signup');
@@ -30,7 +30,7 @@ module.exports.signUpGet = async (req, res) => {
     }
 }
 
-module.exports.signInPost = async (req, res) => {
+module.exports.signIn = async (req, res) => {
     try {
         console.log(req.body.email)
         const validUser = await user.findUnique({
@@ -48,7 +48,7 @@ module.exports.signInPost = async (req, res) => {
     }
 }
  
-module.exports.signInGet = async (req, res) => {
+module.exports.renderSignIn = async (req, res) => {
     try {
         res.render('signin');
     } catch(error) {

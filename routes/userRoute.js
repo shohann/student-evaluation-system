@@ -1,13 +1,13 @@
 const router = require('express').Router();
-const { signUpPost, signUpGet, signInPost, signInGet } = require('../controllers/userControllers')
+const { signUp, renderSignUp, signIn, renderSignIn } = require('../controllers/userControllers')
 
 router.route('/signup')
-      .post(signUpPost)
-      .get(signUpGet);
+      .post(signUp)
+      .get(renderSignUp);
 
 router.route('/signin')
-      .post(signInPost)
-      .get(signInGet);
+      .post(signIn)
+      .get(renderSignIn);
       
  
 module.exports = router;

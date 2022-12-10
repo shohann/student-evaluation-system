@@ -1,8 +1,10 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-const userRoute = require('./routes/userRoute');
 const app = express();
 const prisma = new PrismaClient;
+
+const userRoute = require('./routes/userRoute');
+const groupRoute = require('./routes/groupRoute');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -11,7 +13,7 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use('/api', userRoute);
-
+app.use('/api', groupRoute);
 
 
 

@@ -1,14 +1,20 @@
 const { User } = require('../utils/dbInit');
 
-const createUser = async (email, name) => {
-    const newUser = await User.create({
+module.exports.createUser = async (email, name, password) => {
+    return await User.create({
         data: {
             email: email,
-            name: name
+            name: name,
+            password: password
+
         }
     });
-
-    console.log(newUser)
 };
 
-createUser('NAME', 'name@mail.com');
+module.exports.fetchSingleUser = async (email) => {
+    return await User.findUnique({
+        where: {
+            email: email
+        }
+    });
+};
