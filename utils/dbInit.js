@@ -9,6 +9,7 @@ module.exports = {
     Question: prisma.question,
     Option: prisma.option,
     Answer: prisma.answer,
+    Response: prisma.response,
     Result: prisma.result
 };
 

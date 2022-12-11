@@ -17,6 +17,7 @@ model User {
   // user can have many group membership
   group_membership Group_membership[]
   result Result[]
+  response Response[]
 }
 
 model Group {
@@ -57,6 +58,8 @@ model Quiz {
   questions Question[]
   answers Answer[]
   result Result[]
+  response Response[]
+  category Category[]
 
   // A quiz has many results
   // has one category
@@ -72,7 +75,11 @@ model Quiz {
 
 model Category {
   id  String @default(uuid()) @unique @id
-  category_name Category_name @default(ACHIEVEMENT) // can be a Enum
+  category_name Category_name @default(ACHIEVEMENT) // Enum
+  quiz Quiz @relation(fields: [quizId], references: [id])
+  quizId String
+
+  //  a category can have many quizes
 }
 
 model Question {
@@ -103,18 +110,34 @@ model Answer {
 
 model Response {
   id  String @default(uuid()) @unique @id
+
+  student_response String[]
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+
+  quiz Quiz @relation(fields: [quizId], references: [id])
+  quizId String
+
+  result Result? // A response can have zero or only one result
 }
 
 model Result {
   id  String @default(uuid()) @unique @id
+  marks Int
   quiz Quiz @relation(fields: [quizId], references: [id])
   quizId String
+  response Response @relation(fields: [responseId], references: [id])
+  responseId String @unique
+
 
   // quiz id 
   // student Id -> user Id -> might duplicate
   // Group Id
   // marks
   // negativity
+  // Before result there must be a response
+  // status : pass or fail
 
   user User @relation(fields: [userId], references: [id])
   userId String
