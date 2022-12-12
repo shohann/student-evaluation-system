@@ -32,3 +32,51 @@ localhost:3001/response/92d61e68-f9d3-410b-8462-b2b20fe5197f
 {
     "response": ["A", "B"]
 }
+
+
+--------NEW----------------------
+
+* 
+
+localhost:3001/api/quizes/959b2498-9dcd-4f55-b410-702bd52eeae0
+
+{
+    "name": "Quiz-2",
+    "quiz": [
+        {
+            "question_text": "What is this",
+            "options": [
+                { "option": "A", "txt": "Bat" },
+                { "option": "B", "txt": "Ball" }
+            ],
+            "answer": "A"
+        },
+        {
+            "question_text": "What animal is this",
+            "options": [
+                { "option": "A", "txt": "Kutta" },
+                { "option": "B", "txt": "Shuyar" }
+            ],
+            "answer": "B"
+        }
+    ]
+}
+
+* 
+
+localhost:3001/api/quizes/959b2498-9dcd-4f55-b410-702bd52eeae0
+
+{
+    "name": "Test-2"
+}
+
+*
+
+localhost:3001/api/groups
+
+{
+    "name": "Test"
+}
+
+*
+
