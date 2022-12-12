@@ -1,0 +1,139 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk, unique]
+  email String [unique, not null]
+  name String
+  role Role [not null, default: 'STUDENT']
+  group_membership Group_membership [not null]
+  result Result [not null]
+  response Response [not null]
+}
+
+Table Group {
+  id String [pk, unique]
+  name String [not null]
+  group_membership Group_membership [not null]
+  quiz Quiz [not null]
+}
+
+Table Group_membership {
+  creator Boolean [not null, default: false]
+  user User [not null]
+  userId String [not null]
+  group Group [not null]
+  groupId String [not null]
+
+  indexes {
+    (userId, groupId) [pk]
+  }
+}
+
+Table Quiz {
+  id String [pk, unique]
+  name String [not null]
+  full_marks Int [not null]
+  pass_marks Int [not null]
+  negative_marks Int
+  questions Question [not null]
+  answers Answer [not null]
+  result Result [not null]
+  response Response [not null]
+  category Category [not null]
+  group Group [not null]
+  groupId String [not null]
+}
+
+Table Category {
+  id String [pk, unique]
+  category_name Category_name [not null, default: 'ACHIEVEMENT']
+  quiz Quiz [not null]
+  quizId String [not null]
+}
+
+Table Question {
+  id String [pk, unique]
+  question_text String [not null]
+  quiz Quiz [not null]
+  quizId String [not null]
+  options Option [not null]
+  answer Answer
+}
+
+Table Option {
+  id String [pk, unique]
+  option String [not null]
+  txt String [not null]
+  question Question [not null]
+  questionId String [not null]
+}
+
+Table Answer {
+  id String [pk, unique]
+  answer_text String [not null]
+  question Question [not null]
+  questionId String [unique, not null]
+  quiz Quiz [not null]
+  quizId String [not null]
+}
+
+Table Response {
+  id String [pk, unique]
+  student_response String[] [not null]
+  user User [not null]
+  userId String [not null]
+  quiz Quiz [not null]
+  quizId String [not null]
+  result Result
+}
+
+Table Result {
+  id String [pk, unique]
+  marks Int [not null]
+  quiz Quiz [not null]
+  quizId String [not null]
+  response Response [not null]
+  responseId String [unique, not null]
+  user User [not null]
+  userId String [not null]
+}
+
+Enum Category_name {
+  ACHIEVEMENT
+  IQ
+  APTITUDE
+}
+
+Enum Role {
+  STUDENT
+  ADMIN
+  TEACHER
+}
+
+Ref: Group_membership.userId > User.id
+
+Ref: Group_membership.groupId > Group.id
+
+Ref: Quiz.groupId > Group.id
+
+Ref: Category.quizId > Quiz.id
+
+Ref: Question.quizId > Quiz.id
+
+Ref: Option.questionId > Question.id
+
+Ref: Answer.questionId - Question.id
+
+Ref: Answer.quizId > Quiz.id
+
+Ref: Response.userId > User.id
+
+Ref: Response.quizId > Quiz.id
+
+Ref: Result.quizId > Quiz.id
+
+Ref: Result.responseId - Response.id
+
+Ref: Result.userId > User.id
