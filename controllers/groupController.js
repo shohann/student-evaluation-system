@@ -5,30 +5,34 @@ const { fetchAllGroupMembershipByMemberId,
 const { fetchSingleGroupDetailsById, 
         createGroup,
         deleteSingleGroupById } 
-        = require('../services/groupService')
-
+        = require('../services/groupService');
 
 module.exports.setGroup = async (req, res) => {
      // ensure current logged in user is the creator of the group
     // Only a teacher will set a group
     // createTeacherMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de' );
-    const mockUserId = '1ada1270-9bb2-4774-bc65-a568bf4448d2';
+    // const mockUserId = '1ada1270-9bb2-4774-bc65-a568bf4448d2';
     const groupName = req.body.name;
+    const userId = req.user.id;
 
     try {
         // create group
-        const group = await createGroup(groupName);
         // create creator membership only for teacher
-        const groupMembership = await createTeacherMembershipById(mockUserId, group.id)
+        const group = await createGroup(groupName);
+        const groupMembership = await createTeacherMembershipById(userId, group.id);
 
-        res.send({
-            group,
-            groupMembership
-        })
+        res.status(201).json({
+            groupName: group.name,
+            creator: groupMembership.creator
+        });
     } catch (error) {
         console.log(error);
+        res.status(400).json({
+            message: 'Internal Server Error'
+        })
     }
 };
+
 
 module.exports.getGroup = async (req, res) => {
     // Get all members with given group id
@@ -44,10 +48,11 @@ module.exports.getGroup = async (req, res) => {
 
 };
 
+// userId is the current logged in user
 module.exports.getGroups = async (req, res) => {
+    const userId = req.user.id
     try {
-        // userId is the current logged in user
-        const groups = await fetchAllGroupMembershipByMemberId('0a69fa4f-b428-41ab-ac20-ce7b06035af3');
+        const groups = await fetchAllGroupMembershipByMemberId(userId);
         res.send(groups);
     } catch (error) {
         console.log(error);

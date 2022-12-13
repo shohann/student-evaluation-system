@@ -1,7 +1,7 @@
 const { verify } = require('jsonwebtoken');
-const { jwtKey } = require('../../config/environmentVariables');
+const { jwtKey } = require('../config/custom-environment-variables');
 
-module.exports.authorizeAccess =  (req, res, next) => {
+module.exports.authorize =  (req, res, next) => {
     try {
         let tokenHeader = req.header('Authorization');
         const token = tokenHeader.split(" ")[1].trim();
