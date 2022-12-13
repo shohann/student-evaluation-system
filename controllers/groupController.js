@@ -1,9 +1,11 @@
 const { fetchAllGroupMembershipByMemberId, 
         createTeacherMembershipById,
-        deleteAllGroupMembershipByGroupId } = require('../services/groupMembershipService');
+        deleteAllGroupMembershipByGroupId } 
+        = require('../services/groupMembershipService');
 const { fetchSingleGroupDetailsById, 
         createGroup,
-        deleteSingleGroupById } = require('../services/groupService')
+        deleteSingleGroupById } 
+        = require('../services/groupService')
 
 
 module.exports.setGroup = async (req, res) => {
