@@ -7,10 +7,6 @@ const { createQuestions,
 const { createOptions } = require('../services/optionSevice');
 const { createAnswers } = require('../services/answerService');
 
-// const { PrismaClient } = require('@prisma/client');
-// const prisma = new PrismaClient;
-
-// fetchAllGroupIdByGroupId('959b2498-9dcd-4f55-b410-702bd52eeae0');
 module.exports.getQuizes = async (req, res) => {
     const groupId = req.params.groupId;
 

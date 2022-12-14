@@ -1,6 +1,8 @@
 const { fetchAllGroupMembershipByMemberId, 
         createTeacherMembershipById,
-        deleteAllGroupMembershipByGroupId } 
+        createStudentMembershipById,
+        deleteAllGroupMembershipByGroupId,
+        deleteSingleStudentMembershipById } 
         = require('../services/groupMembershipService');
 const { fetchSingleGroupDetailsById, 
         createGroup,
@@ -36,7 +38,6 @@ module.exports.setGroup = async (req, res) => {
 
 module.exports.getGroup = async (req, res) => {
     // Get all members with given group id
-    // fetchSingleGroupDetails('82e6c2c3-d60a-4cfc-8b20-0889b2c05919')
     const groupId = req.params.groupId;
     try {   
         const group = await fetchSingleGroupDetailsById(groupId);
@@ -69,7 +70,7 @@ module.exports.removeGroup = async (req, res) => {
     try {
         const deletedMembers = await deleteAllGroupMembershipByGroupId(groupId);
         const deletedGroup = await deleteSingleGroupById(groupId);
-
+        // del res, result, quiz for it
         res.send({
             deletedMembers,
             deletedGroup
@@ -80,23 +81,33 @@ module.exports.removeGroup = async (req, res) => {
     }
 };
 
-module.exports.removeMember = async (req, res) => {
-
-};
-
-module.exports.removeMembers = async (req, res) => {
-
-};
-
 module.exports.setMember = async (req, res) => {
+    const groupId = req.params.groupId;
+    const userId = req.user.id;
 
+    try {
+        const studentMembership = await createStudentMembershipById(userId, groupId);
+        res.status(201).json(studentMembership);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 };
 
-module.exports.addQuiz = async (req, res) => {
+module.exports.removeMember = async (req, res) => {
+    const groupId = req.params.groupId;
+    const studentId = req.params.studentId;
+    const userId = req.user.id;
 
+    try {
+        const deletedMember = await deleteSingleGroupById(studentId, groupId);
+    } catch(error) {
+        console.log(error);
+        res.send(error);
+    }
 };
 
-module.exports.removeQuiz = async (req, res) => {
 
-};
+
+
 

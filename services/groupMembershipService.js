@@ -31,42 +31,33 @@ module.exports.deleteAllGroupMembershipByGroupId = async (groupId) => {
     });
 };
 
-//////////////////////////////////////////////
-
-
-
-
-
-
-
-const createStudentMembership = async (teacherId, groupId) => {
-    const newGroupMember = await GroupMembership.create({
+module.exports.createStudentMembershipById = async (userId, groupId) => {
+    return await GroupMembership.create({
         data: {
           groupId: groupId,
-          userId: teacherId,
+          userId: userId,
         },
     });
-
-    console.log(newGroupMember);
 };
 
-const fetchStudentMemberShip = async (userId, groupId) => [
-
-];
-
-const deleteSingleStudentMembership = async (userId, groupId) => {
-    const deletedGroupMember = await GroupMembership.delete({
+module.exports.deleteSingleStudentMembershipById = async (userId, groupId) => {
+    return await GroupMembership.delete({
         where: {
             userId_groupId: {
                 userId: userId,
                 groupId: groupId
             }
-            
         }
     });
-
-    console.log(deletedGroupMember);
 };
+
+//////////////////////////////////////////////
+
+const fetchStudentMemberShip = async (userId, groupId) => {
+    // to know all his memberships
+}
+
+
 
 // deleteSingleStudentMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de')
 
