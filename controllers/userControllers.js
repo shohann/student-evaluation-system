@@ -69,7 +69,7 @@ module.exports.signIn = async (req, res) => {
  
 module.exports.renderSignIn = async (req, res) => {
     try {
-        res.render('signin');
+        res.render('login');
     } catch(error) {
         console.log(error);
         res.send(error);
