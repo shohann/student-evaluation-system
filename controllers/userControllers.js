@@ -2,6 +2,7 @@ const { createUser, fetchSingleUserById } = require('../services/userService');
 const { genSalt, hash, compare } = require('bcrypt');
 const { generateJWT } = require('../utils/jwt');
 const { saltRound } = require('../config/default');
+const maxAge = 3 * 24 * 60 * 60;
 
 module.exports.signUp = async (req, res) => {
     try {
@@ -10,6 +11,7 @@ module.exports.signUp = async (req, res) => {
         const newUser = await createUser(req.body.email, req.body.name, hashedPassword);
         const token = generateJWT(newUser.id, newUser.email, newUser.role);
 
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(201).json({
             success: true,
             message: 'User created successfully',
@@ -37,7 +39,6 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.renderSignUp = async (req, res) => {
     try {
-        console.log("OK");
         res.render('signup');
     } catch(error) {
         console.log(error);
@@ -53,7 +54,7 @@ module.exports.signIn = async (req, res) => {
         }
         const token = generateJWT(user.id, user.email, user.role);
 
-
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(200).json({
             success: true,
             message: 'User found',
@@ -74,4 +75,10 @@ module.exports.renderSignIn = async (req, res) => {
         console.log(error);
         res.send(error);
     }
+}
+
+
+module.exports.logout = (req, res) => {
+    res.cookie('jwt', '', { maxAge: 1 });
+    res.redirect('/');
 }

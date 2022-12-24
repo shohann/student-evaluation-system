@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Dashboard</title>
-</head>
-<body>
-	<!-- <h1>Welcome <%= email %></h1> -->
-	<h1>Success</h1>
-</body>
-</html>
+<%- include('partials/header'); -%>
+
+<div class="sidebar">
+	<a href="#home"> Home</a>
+	<a href="#services">Services</a>
+	<a href="#clients">Clients</a>
+	<a href="#contact">Contact</a>
+  </div>
+  
+  <div class="main">
+	<h2>Sidebar with Icons</h2>
+	<p>This side navigation is of full height (100%) and always shown.</p>
+	<p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+	<p>Lorem ipsum dolor sit amet, illum definitiones no quo, maluisset concludaturque et eum, altera fabulas ut quo. Atqui causae gloriatur ius te, id agam omnis evertitur eum. Affert laboramus repudiandae nec et. Inciderint efficiantur his ad. Eum no molestiae voluptatibus.</p>
+	<br>
+	<% if (groups.length > 0) { %>
+	  <% groups.forEach(blog => { %>
+		 
+			<p class="snippet"><%= blog %></p>
+	
+		<% }) %>
+	  <% } else { %>
+		<p>There are no blogs to display...</p>
+	  <% } %>
+
+  </div>
+
+
+
+<%- include('partials/footer'); -%>

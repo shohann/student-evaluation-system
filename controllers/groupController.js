@@ -9,6 +9,17 @@ const { fetchSingleGroupDetailsById,
         deleteSingleGroupById } 
         = require('../services/groupService');
 
+module.exports.renderGroups = async (req, res) => {
+    const userId = 'af2ae463-edb1-4ba1-9d72-3565fe19a3e3';
+    try {
+        const groups = ['dsndsn', 'sdshds', 'abc', 'usdjsjs', 'sjdjsk']
+        res.render('dashboard', { groups: groups });
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+};
+
 module.exports.setGroup = async (req, res) => {
      // ensure current logged in user is the creator of the group
     // Only a teacher will set a group

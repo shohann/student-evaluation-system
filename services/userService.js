@@ -12,6 +12,7 @@ module.exports.createUser = async (email, name, password) => {
 };
 
 module.exports.fetchSingleUserById = async (email) => {
+    //it uses the email not Id
     return await User.findUnique({
         where: {
             email: email

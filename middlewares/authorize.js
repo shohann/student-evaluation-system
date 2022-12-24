@@ -1,5 +1,6 @@
 const { verify } = require('jsonwebtoken');
 const { jwtKey } = require('../config/custom-environment-variables');
+const { fetchSingleUserById } = require('../services/userService')
 
 module.exports.authorize =  (req, res, next) => {
     try {
@@ -14,3 +15,17 @@ module.exports.authorize =  (req, res, next) => {
         else return res.status(500).send('Internal server error');
     }
 };
+
+module.exports.checkCurrentUser = async (req, res, next) => {
+    const token = req.cookies.jwt;
+    try {
+        const decoded = verify(token, jwtKey);
+        console.log(decoded)
+        res.locals.user = decoded;
+        next();
+    } catch (error) {
+        res.locals.user = null;
+        next();
+    }
+};
+

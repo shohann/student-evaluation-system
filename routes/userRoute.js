@@ -1,14 +1,16 @@
 const router = require('express').Router();
-const { signUp, renderSignUp, signIn, renderSignIn } = require('../controllers/userControllers');
-const { checkUser } = require('../middlewares/checkUser');
+const { signUp, renderSignUp, signIn, renderSignIn, logout } = require('../controllers/userControllers');
+const { checkCurrentUser } = require('../middlewares/authorize');
 
 router.route('/users/signup')
-      .post(signUp)
-      .get(renderSignUp);
+      .post(checkCurrentUser,signUp)
+      .get(checkCurrentUser,renderSignUp);
 
 router.route('/users/signin')
-      .post(checkUser,signIn)
-      .get(checkUser,renderSignIn);
+      .post(checkCurrentUser,signIn)
+      .get(checkCurrentUser,renderSignIn);
+
+router.route('/logout').get(checkCurrentUser,logout);
       
  
 module.exports = router;
