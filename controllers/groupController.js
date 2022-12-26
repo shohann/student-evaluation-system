@@ -10,15 +10,28 @@ const { fetchSingleGroupDetailsById,
         = require('../services/groupService');
 
 module.exports.renderGroups = async (req, res) => {
-    const userId = 'af2ae463-edb1-4ba1-9d72-3565fe19a3e3';
+    const userId = 'b3109dd4-8cda-411f-be38-3ee566aff2e9';
     try {
-        const groups = ['dsndsn', 'sdshds', 'abc', 'usdjsjs', 'sjdjsk']
+        // const groups = ['dsndsn', 'sdshds', 'abc', 'usdjsjs', 'sjdjsk']
+        const groups = await fetchAllGroupMembershipByMemberId(userId);
+        // groups.push('Working');
         res.render('dashboard', { groups: groups });
     } catch (error) {
         console.log(error);
         res.send(error);
     }
 };
+
+module.exports.renderQuiz = async (req, res) => {
+    try {
+        res.render('quiz');
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+}
+
+///////////////////////////
 
 module.exports.setGroup = async (req, res) => {
      // ensure current logged in user is the creator of the group

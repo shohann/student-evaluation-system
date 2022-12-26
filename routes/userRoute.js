@@ -12,5 +12,4 @@ router.route('/users/signin')
 
 router.route('/logout').get(checkCurrentUser,logout);
       
- 
 module.exports = router;

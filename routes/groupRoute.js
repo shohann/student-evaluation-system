@@ -9,7 +9,8 @@ const { getGroups,
         setGroup, 
         removeGroup,
         setMember,
-        renderGroups } = require('../controllers/groupController');
+        renderGroups,
+        renderQuiz } = require('../controllers/groupController');
 
 router.route('/groups')
     .get(authorize,getGroups) // valid only for creator and student.student see memberships and techer see ownerships
@@ -17,6 +18,8 @@ router.route('/groups')
 
 router.route('/show-groups')
     .get(checkCurrentUser, renderGroups)
+
+router.route('/groups/quiz').get(checkCurrentUser, renderQuiz);
     
 router.route('/groups/:groupId')
     .get(authorize, member, getGroup) // get single group and its all members
