@@ -11,14 +11,12 @@
       <!-- <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Another Field"> -->
     </div>
 
-        <!-- </div>
-      <input type="text" name="Question" class="survey_options" size="50" placeholder="Another Field">
-    <div> -->
 
     <br>
     <div class="controls">
       <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
       <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+      <a href="#" id="submit-quiz"><i class="fa fa-plus"></i>Submit</a>
     </div>
 </div>
 
@@ -28,16 +26,23 @@
     const survey_options = document.getElementById('survey_options');
     const add_more_fields = document.getElementById('add_more_fields');
     const remove_fields = document.getElementById('remove_fields');
-    const quizes = [];
-
-    let question;
-    let answer;
-    let options = [];
+    const submit = document.getElementById('submit-quiz');
+    let quizes = [];
+    let quiz = {};
+    let questionVar;
+    let answerVar;
+    let optionsVar;
 
     let count = 1;
 
     add_more_fields.onclick = function(e){
         e.preventDefault();
+        quizes.push(quiz)
+        quiz = {};
+        questionVar = ' ';
+        answerVar = ' ';
+        optionsVar = [];
+
         const question = document.createElement('input');
         const answer = document.createElement('input');
         const optionA = document.createElement('input');
@@ -101,31 +106,27 @@
     }
 
     survey_options.addEventListener("keyup", (event) => {
-        const quiz = {};
         if (event.key === "Enter") {
             // console.log(event.target.name)
             if (event.target.name === 'question') {
-                question = event.target.value
+                questionVar = event.target.value
+                quiz.question_text = questionVar;
             } else if (event.target.name === 'answer') {
-                answer = event.target.value;
+                answerVar = event.target.value;
+                quiz.answer = answerVar;
             } else {
-                options.push({
+                optionsVar.push({
                     option: event.target.name,
                     txt: event.target.value
                 });
+                quiz.options = optionsVar
             }
         }
+    });
 
-        quiz.question_text = question;
-        quiz.answer = answer;
-        quiz.options = options
-        quizes.push(quiz)
+    submit.addEventListener('click', (e) => {
+        quizes.push(quiz);
         console.log(quizes);
-        question = ''
-        answer = ''
-        options = []
-        
-        
     });
 
     // console.log(texts)

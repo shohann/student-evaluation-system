@@ -43,6 +43,7 @@ nav li a{
 .btn{
   border-radius: 36px;
   background: #FEE996;
+  padding: 20px;
 }
 form h2{
   font-size: 2.4em;
@@ -157,6 +158,7 @@ footer{
   height: 20%;
   border-radius: 5px; */
 
+  background-color: #FEE996;
   margin: 0 auto;
   max-width: 1000px;
   display: grid;
