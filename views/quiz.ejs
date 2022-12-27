@@ -1,14 +1,20 @@
 <%- include('partials/header'); -%>
 
-<h1>Dynamic Fields Javascript</h1>
   <div class="wrapper">
     <div id="survey_options">
-      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Name">
-      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Email">
+      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Total Marks">
       <br>
       <br>
-      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Another Field">
+      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Pass Marks">
+      <br>
+      <br>
+      <!-- <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Another Field"> -->
     </div>
+
+        <!-- </div>
+      <input type="text" name="Question" class="survey_options" size="50" placeholder="Another Field">
+    <div> -->
+
     <br>
     <div class="controls">
       <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
@@ -19,25 +25,110 @@
 <%- include('partials/footer'); -%>
 
 <script>
-    var survey_options = document.getElementById('survey_options');
-    var add_more_fields = document.getElementById('add_more_fields');
-    var remove_fields = document.getElementById('remove_fields');
-    const data = {
-        quiz: ['abc']
+    const survey_options = document.getElementById('survey_options');
+    const add_more_fields = document.getElementById('add_more_fields');
+    const remove_fields = document.getElementById('remove_fields');
+    const quizes = [];
+
+    let question;
+    let answer;
+    let options = [];
+
+    let count = 1;
+
+    add_more_fields.onclick = function(e){
+        e.preventDefault();
+        const question = document.createElement('input');
+        const answer = document.createElement('input');
+        const optionA = document.createElement('input');
+        const optionB = document.createElement('input');
+        const optionC = document.createElement('input');
+        const optionD = document.createElement('input');
+        const heading = document.createElement('p');
+        const lineBreak = document.createElement('br');
+
+        heading.innerText = `Question ${count++}`;
+
+        question.setAttribute('type','text');
+        question.setAttribute('name','question');
+        question.setAttribute('class','survey_options');
+        question.setAttribute('size',50);
+        question.setAttribute('placeholder','Question');
+        
+        answer.setAttribute('type','text');
+        answer.setAttribute('name','answer');
+        answer.setAttribute('class','survey_options');
+        answer.setAttribute('size',50);
+        answer.setAttribute('placeholder','Answer');
+
+        // Option - A
+        optionA.setAttribute('type','text');
+        optionA.setAttribute('name','A');
+        optionA.setAttribute('class','survey_options');
+        optionA.setAttribute('size',50);
+        optionA.setAttribute('placeholder','Option A');
+
+        // Option - B
+        optionB.setAttribute('type','text');
+        optionB.setAttribute('name','B');
+        optionB.setAttribute('class','survey_options');
+        optionB.setAttribute('size',50);
+        optionB.setAttribute('placeholder','Option B');
+
+        // Option - C
+        optionC.setAttribute('type','text');
+        optionC.setAttribute('name','C');
+        optionC.setAttribute('class','survey_options');
+        optionC.setAttribute('size',50);
+        optionC.setAttribute('placeholder','Option C');
+        
+        // Option - D
+        optionD.setAttribute('type','text');
+        optionD.setAttribute('name','D');
+        optionD.setAttribute('class','survey_options');
+        optionD.setAttribute('size',50);
+        optionD.setAttribute('placeholder','Option D');
+
+        survey_options.appendChild(heading);
+        survey_options.appendChild(question);
+        survey_options.appendChild(answer);
+        survey_options.appendChild(optionA);
+        survey_options.appendChild(optionB);
+        survey_options.appendChild(optionC);
+        survey_options.appendChild(optionD);
+
+        // negative dropdown option
     }
 
-    console.log(data);
+    survey_options.addEventListener("keyup", (event) => {
+        const quiz = {};
+        if (event.key === "Enter") {
+            // console.log(event.target.name)
+            if (event.target.name === 'question') {
+                question = event.target.value
+            } else if (event.target.name === 'answer') {
+                answer = event.target.value;
+            } else {
+                options.push({
+                    option: event.target.name,
+                    txt: event.target.value
+                });
+            }
+        }
 
-    add_more_fields.onclick = function(){
-        var newField = document.createElement('input');
-        newField.setAttribute('type','text');
-        newField.setAttribute('name','survey_options[]');
-        newField.setAttribute('class','survey_options');
-        newField.setAttribute('siz',50);
-        newField.setAttribute('placeholder','Another Field');
-        survey_options.appendChild(newField);
-    }
+        quiz.question_text = question;
+        quiz.answer = answer;
+        quiz.options = options
+        quizes.push(quiz)
+        console.log(quizes);
+        question = ''
+        answer = ''
+        options = []
+        
+        
+    });
 
+    // console.log(texts)
     remove_fields.onclick = function(){
         var input_tags = survey_options.getElementsByTagName('input');
         if(input_tags.length > 2) {
@@ -46,10 +137,11 @@
     }
 
     //This function is added later [update]  
-    document.getElementById('print-values-btn').onclick = function() {
-        let allTextBoxes = document.getElementsByName('survey_options[]');  
-        for(let i of allTextBoxes){
-            console.log(i.value) //here you will be able to see all values in the console
-        }
-    }
+    // document.getElementById('print-values-btn').onclick = function() {
+        
+    //     let allTextBoxes = document.getElementsByName('survey_options[]');  
+    //     for(let i of allTextBoxes){
+    //         console.log(i.value) //here you will be able to see all values in the console
+    //     }
+    // }
 </script>
