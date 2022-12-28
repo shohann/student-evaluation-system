@@ -13,7 +13,7 @@ module.exports.renderGroups = async (req, res) => {
     const userId = 'b3109dd4-8cda-411f-be38-3ee566aff2e9';
     try {
         // const groups = ['dsndsn', 'sdshds', 'abc', 'usdjsjs', 'sjdjsk']
-        const groups = await fetchAllGroupMembershipByMemberId(userId);
+        const groups = await fetchAllGroupMembershipByMemberId(req.user.id);
         // groups.push('Working');
         res.render('dashboard', { groups: groups });
     } catch (error) {

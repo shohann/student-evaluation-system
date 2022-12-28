@@ -1,18 +1,23 @@
 <%- include('partials/header'); -%>
-
-  
   <div class="main">
-	<ul><li><a href="/" class="btn">Create</a></li></ul>
+	<button type="button" class="btn" id="create-btn" style="display: block;"> Create </button>
 	<br>
 	<br>
+	<div id="new-group" style="display: none;">
+		 <input type="text" name="group"placeholder="Group Name" id="group-input">
+		 <button type="button" id="group-submit"> Submit </button>
+		 <button type="button" id="cancel-new"> Cancel </button>
+	</div>
 
 	<% if (groups.length > 0) { %>
 	  <% groups.forEach(group => { %>
 		 <!-- <p class="snippet"><%= group.group.name %></p> -->
 		 <div class="group-card">
 			<div class="group-container">
-			  <p class="snippet"><%= group.group.name %></p>
+			  <h2 class="snippet"><%= group.group.name %></h2>
 			  <br>
+			  <button>Open</button>
+			  <button>Delete</button>
 			</div>
 		  </div>
 		  <br>
@@ -24,3 +29,43 @@
   </div>
 
 <%- include('partials/footer'); -%>
+
+<script>
+	const createButton = document.getElementById('create-btn');
+	const cancelButton = document.getElementById('cancel-new');
+	const newGroup = document.getElementById('new-group');
+	const groupInput = document.getElementById('group-input');
+	const submitGroup = document.getElementById('group-submit');
+
+	createButton.addEventListener('click', (e) => {
+		createButton.style.display = 'none';
+		newGroup.style.display = 'block';
+	});
+
+	cancelButton.addEventListener('click', (e) => {
+		createButton.style.display = 'block';
+		newGroup.style.display = 'none';
+	})
+
+	submitGroup.addEventListener('click', async (e) => {
+		const name = groupInput.value;
+		try {
+			const res = await fetch('/api/groups', { 
+				method: 'POST', 
+				body: JSON.stringify({ name }),
+				headers: {'Content-Type': 'application/json'}
+			});
+			const data = await res.json();
+
+			if (data) {
+				location.assign('/api/show-groups');
+			}
+
+			}
+			catch (err) {
+			console.log(err);
+		}
+		});
+
+
+</script>

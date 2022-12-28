@@ -20,6 +20,7 @@ module.exports.checkCurrentUser = async (req, res, next) => {
     const token = req.cookies.jwt;
     try {
         const decoded = verify(token, jwtKey);
+        req.user = decoded;
         res.locals.user = decoded;
         next();
     } catch (error) {
