@@ -2,25 +2,29 @@
 
   <div class="wrapper">
     <div id="survey_options">
+      <h4>Total Marks</h4>
       <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Total Marks">
       <br>
       <br>
-      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Pass Marks">
+      <h4>Passing Marks</h4>
+      <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Passing Marks">
       <br>
       <br>
       <!-- <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Another Field"> -->
     </div>
 
-
-    <br>
-    <div class="controls">
-      <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-      <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
-      <a href="#" id="submit-quiz"><i class="fa fa-plus"></i>Submit</a>
+    <!-- <div class="controls verticle-btn"></div> -->
+    <div class="verticle-btn">
+      <button><a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a></button>
+      <button><a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a></button>
+      <button><a href="#" id="submit-quiz"><i class="fa fa-plus"></i>Submit</a></button>
+    
     </div>
 </div>
 
 <%- include('partials/footer'); -%>
+
+
 
 <script>
     const survey_options = document.getElementById('survey_options');
