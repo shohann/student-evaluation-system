@@ -12,7 +12,8 @@ module.exports.getQuizes = async (req, res) => {
 
     try {
         const quizes = await fetchAllQuizesIdByGroupId(groupId);
-        res.send(quizes);
+        res.render('group-details', { quizes: quizes });
+        // res.send(quizes);
     } catch (error) {
         console.log(error);
         res.send(error)

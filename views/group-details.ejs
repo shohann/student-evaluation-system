@@ -1,0 +1,32 @@
+<%- include('partials/header'); -%>
+
+<button type="button" class="btn" id="create-btn" style="display: block;"> Create </button>
+<br>
+<div class="main">
+	<% if (quizes.length > 0) { %>
+	  <% quizes.forEach(quiz => { %>
+		 <div class="group-card">
+			<div class="group-container">
+			  <h2 class="snippet"><%= quiz.name %></h2>
+			  <br>
+			  <h3>Category: Achivement Test</h3>
+			  <h3>Total Marks: 50</h3>
+			  <h3>Passing Marks 20</h3>
+			  <h3></h3>
+			<div class="verticle-btn">
+				<button><a href="/api/quizes/">Open</a></button>
+				<button><a href="http://">Remove</a></button>
+			</div>
+
+			</div>
+		  </div>
+		  <br>
+	  <% }) %>
+	<% } else { %>
+		<p>There are no  to display...</p>
+	<% } %>
+
+  </div>
+
+
+<%- include('partials/footer'); -%>

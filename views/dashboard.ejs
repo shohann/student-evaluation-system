@@ -1,32 +1,46 @@
 <%- include('partials/header'); -%>
-  <div class="main">
-	<button type="button" class="btn" id="create-btn" style="display: block;"> Create </button>
+
+<div style="padding-left: 5px;">
+	<button type="button" class="card-btn" id="create-btn" style="display: block;"> Create </button>
 	<br>
 	<br>
-	<div id="new-group" style="display: none;">
-		 <input type="text" name="group"placeholder="Group Name" id="group-input">
-		 <button type="button" id="group-submit"> Submit </button>
-		 <button type="button" id="cancel-new"> Cancel </button>
+	<div class="verticle-btn" id="new-group" style="display: none; padding-bottom: 45px;">
+		<input class="txt-input" type="text" name="group"placeholder="Group Name" id="group-input">
+		<button class="card-btn" type="button" id="group-submit"> Submit </button>
+		<button class="card-btn" type="button" id="cancel-new"> Cancel </button>
 	</div>
+</div>
+
+  <div class="main">
+	
+
 
 	<% if (groups.length > 0) { %>
 	  <% groups.forEach(group => { %>
-		 <!-- <p class="snippet"><%= group.group.name %></p> -->
 		 <div class="group-card">
 			<div class="group-container">
-			  <h2 class="snippet"><%= group.group.name %></h2>
-			  <br>
-			  <button>Open</button>
-			  <button>Delete</button>
+
+			  <div>
+				<h2 style="padding: 15px;"><%= group.group.name %></h2>
+			  </div>
+
+			  <div class="verticle-btn">
+				<button class="card-btn"><a href="/api/quizes/<%= group.group.id %>">Open</a></button>
+			  	<button class="card-btn">Delete</button>
+			  </div>
+			  
 			</div>
-		  </div>
+		   </div>
+		  <br>
 		  <br>
 	  <% }) %>
 	<% } else { %>
-		<p>There are no blogs to display...</p>
+		<p>There are no  to display...</p>
 	<% } %>
 
   </div>
+
+
 
 <%- include('partials/footer'); -%>
 
@@ -36,6 +50,8 @@
 	const newGroup = document.getElementById('new-group');
 	const groupInput = document.getElementById('group-input');
 	const submitGroup = document.getElementById('group-submit');
+
+
 
 	createButton.addEventListener('click', (e) => {
 		createButton.style.display = 'none';
