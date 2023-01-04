@@ -30,25 +30,17 @@ const filterQuestionTexts = (quiz, newQuiz) => {
 };
 
 const filterOptions = (quiz, questions) => {
-    let options = [];
+    let finalOptions = [];
 
-    // Options array
-    const quizOptions = quiz.map(options => {
-        const filterdOption = options.options.map(option => {
-            return option // option.id = "jkdsd"
-        })
-        return options.options
-    });
-    
-
-    for (let i = 0; i < quizOptions.length; i++) {
-        for (let j = 0; j < quizOptions.length; j++) {
-            quizOptions[i][j].questionId = questions[i].id
-            options.push(quizOptions[i][j]);
+    for (let i = 0; i < quiz.length; i++) {
+        let questionId = questions[i].id;
+        for (let j = 0; j < quiz[i].options.length; j++) {
+            quiz[i].options[j].questionId = questionId;
+            finalOptions.push(quiz[i].options[j])
         }
     }
 
-    return options
+    return finalOptions;
 }
 
 const filterAnswers = (quiz, questions, newQuiz) => {
@@ -82,21 +74,6 @@ module.exports.setQuiz = async (req, res) => {
         const newOptions = await createOptions(options);
         const answers = filterAnswers(quiz, fetchedQuestions, newQuiz);
         const newAnswers = await createAnswers(answers);
-
-        // const createQuestions = await prisma.question.createMany({
-        //     data: filterQuestionTexts(quiz, newQuiz),
-        // });
-        // // const questions = await prisma.question.findMany({ where: { quizId: newQuiz.id }})
-
-
-        // const optionsDB = await prisma.option.createMany({
-        //     data: filterOptions(quiz, questions),
-        // });
-
-        // const answersDB = await prisma.answer.createMany({
-        //     data: filterAnswers(quiz, questions, newQuiz),
-        // });
-
 
         res.send({
             newQuiz,

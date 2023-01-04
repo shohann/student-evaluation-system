@@ -1,0 +1,170 @@
+<%- include('partials/header'); -%>
+
+<div class="wrapper" id="create">
+    <div id="survey_options">
+      <h4>Quiz Name</h4>
+      <br>
+      <input id="quiz-name" type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Name">
+      <br>
+      <br>
+      <h4>Number of Questions</h4>
+      <br>
+      <input id="q-num" type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Number of Questions">
+      <br>
+      <br>
+    </div>
+
+    <div class="verticle-btn">
+      <button><a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Create</a></button>
+    </div>
+</div>
+
+<form style="display: none;" id="question-field">
+    <h2 >Questions</h2>
+    <label id="question-head" for="question">Question 1</label>
+    <input type="text" name="question" placeholder="Question" />
+    <br>
+    <br>
+    <!-- <label for="question-1">Option A</label> -->
+    <input type="text" name="Option A" placeholder="Option A" />
+    <br>
+    <br>
+    <!-- <label for="question-1">Option B</label> -->
+    <input type="text" name="Option B" placeholder="Option B" />
+    <br>
+    <br>
+    <!-- <label for="question-1">Option C</label> -->
+    <input type="text" name="Option C" placeholder="Option C" />
+    <br>
+    <br>
+    <!-- <label for="question-1">Option D</label> -->
+    <input type="text" name="Option D" placeholder="Option D" />
+    <br>
+    <br>
+    <!-- <label for="question-1">Answer</label> -->
+    <input type="text" name="Answer" placeholder="Answer" />
+    <br>
+    <br>
+
+    <input id="reset" style="display: block;" type="reset" value="Next">
+    
+    <input id="set" style="display: none;" type="submit" value="Submit">
+  </form>
+
+<%- include('partials/footer'); -%>
+
+<script>
+    const createButton = document.getElementById('add_more_fields');
+    const quizNameInput = document.getElementById('quiz-name');
+    const quizNumInput = document.getElementById('q-num');
+    const quizForm = document.getElementById('create');
+    const questionFields = document.getElementById('question-field');
+    const questionSubmit = document.getElementById('form-submit');
+    const resetForm = document.getElementById('reset');
+    const setForm = document.getElementById('set');
+    let count = 0;
+    let last = 0;
+
+    const groupId = 'c73b0e5c-7ce6-476a-8571-0983214fe46d';
+    const quizBody = [];
+    const main = {
+
+    }
+
+
+    createButton.addEventListener('click', function (e) {
+        // count = parseInt(quizNumInput.value);
+        // main.name = quizNameInput;
+        count++;
+        last = parseInt(quizNumInput.value);
+
+
+        quizForm.style.display = 'none';
+        questionFields.style.display = 'block';
+
+        if (count === last) {
+            resetForm.style.display = 'none'
+            setForm.style.display = 'block';
+        }
+
+    });
+
+    questionFields.addEventListener('reset', function (e) {
+
+        // console.log(e.target[1].name.split(' ')[1]);
+        let question_text = e.target[0].value;
+        let answer = e.target[5].value;
+        let options = [];
+        for (let i = 1; i <= 4; i++) {
+            let option; 
+            options.push({
+                option: e.target[i].name.split(' ')[1],
+                txt: e.target[i].value
+            })
+        }
+        quizBody.push({
+            question_text: question_text, 
+            options: options, 
+            answer: answer
+        });
+
+        count++;
+
+        if (count === last) {
+            resetForm.style.display = 'none'
+            setForm.style.display = 'block';
+        }
+
+    })
+    questionFields.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        let question_text = e.target[0].value;
+        let answer = e.target[5].value;
+        let options = [];
+        for (let i = 1; i <= 4; i++) {
+            let option; 
+            options.push({
+                option: e.target[i].name.split(' ')[1],
+                txt: e.target[i].value
+            })
+        }
+        quizBody.push({
+            question_text: question_text, 
+            options: options, 
+            answer: answer
+        });
+        console.log(quizBody);
+        // console.log('submit');
+        // console.log(e.submitter.id);
+        // console.log(e.target[7].value);
+        // console.log(e.srcElement[0].value);
+        main.name = quizNameInput.value;
+        main.quiz = quizBody;
+        
+
+
+        try {
+            const res = await fetch(`/api/quizes/${groupId}`, { 
+                method: 'POST', 
+                body: JSON.stringify(main),
+                headers: {'Content-Type': 'application/json'}
+            });
+            console.log(JSON.stringify(main));
+            const data = await res.json();
+            console.log(data);
+
+            if (data) {
+                // location.assign('/');
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+        
+    });
+
+</script>
+
+
+

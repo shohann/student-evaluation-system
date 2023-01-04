@@ -1,10 +1,10 @@
 const router = require('express').Router();
 const { getQuizes, setQuiz } = require('../controllers/quizController');
-const { checkCurrentUser } = require('../middlewares/authorize')
+const { checkCurrentUser, authorize } = require('../middlewares/authorize')
 
 router.route('/quizes/:groupId')
       .get(checkCurrentUser, getQuizes)
-      .post(setQuiz)
+      .post(checkCurrentUser,setQuiz)
         // .delete()
 
 module.exports = router;
