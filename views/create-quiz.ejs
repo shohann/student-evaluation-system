@@ -70,12 +70,8 @@
 
 
     createButton.addEventListener('click', function (e) {
-        // count = parseInt(quizNumInput.value);
-        // main.name = quizNameInput;
         count++;
         last = parseInt(quizNumInput.value);
-
-
         quizForm.style.display = 'none';
         questionFields.style.display = 'block';
 
@@ -88,7 +84,6 @@
 
     questionFields.addEventListener('reset', function (e) {
 
-        // console.log(e.target[1].name.split(' ')[1]);
         let question_text = e.target[0].value;
         let answer = e.target[5].value;
         let options = [];
