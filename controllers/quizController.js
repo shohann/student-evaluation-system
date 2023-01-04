@@ -12,13 +12,15 @@ module.exports.getQuizes = async (req, res) => {
 
     try {
         const quizes = await fetchAllQuizesIdByGroupId(groupId);
-        res.render('group-details', { quizes: quizes });
+        res.render('group-details', { quizes: quizes, groupId: groupId });
         // res.send(quizes);
     } catch (error) {
         console.log(error);
         res.send(error)
     }
 };
+
+
 
 const filterQuestionTexts = (quiz, newQuiz) => {
     return quiz.map(question => {
@@ -58,6 +60,18 @@ const filterAnswers = (quiz, questions, newQuiz) => {
 
     return answers
 
+}
+
+module.exports.renderSetQuiz = async (req, res) => {
+    try {
+        // render set quiz
+        // ****
+        // res.render('quiz');
+        res.render('create-quiz');
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 }
 
 module.exports.setQuiz = async (req, res) => {

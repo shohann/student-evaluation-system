@@ -62,14 +62,11 @@
     const questionSubmit = document.getElementById('form-submit');
     const resetForm = document.getElementById('reset');
     const setForm = document.getElementById('set');
+    const groupId = window.location.pathname.split('/')[4];
+    const quizBody = [];
+    const main = {};
     let count = 0;
     let last = 0;
-
-    const groupId = 'c73b0e5c-7ce6-476a-8571-0983214fe46d';
-    const quizBody = [];
-    const main = {
-
-    }
 
 
     createButton.addEventListener('click', function (e) {
@@ -133,28 +130,20 @@
             options: options, 
             answer: answer
         });
-        console.log(quizBody);
-        // console.log('submit');
-        // console.log(e.submitter.id);
-        // console.log(e.target[7].value);
-        // console.log(e.srcElement[0].value);
+
         main.name = quizNameInput.value;
         main.quiz = quizBody;
         
-
-
         try {
             const res = await fetch(`/api/quizes/${groupId}`, { 
                 method: 'POST', 
                 body: JSON.stringify(main),
                 headers: {'Content-Type': 'application/json'}
             });
-            console.log(JSON.stringify(main));
             const data = await res.json();
-            console.log(data);
 
             if (data) {
-                // location.assign('/');
+                location.assign('/api/show-groups');
             }
 
         }

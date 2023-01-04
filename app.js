@@ -26,7 +26,6 @@ app.use('/api', responseRoute);
 app.use('/api', resultRoute);
 
 app.get('/', checkCurrentUser,(req, res) => res.render('home'));
-app.get('/smoothies', checkCurrentUser, (req, res) => res.render('smoothies'));
 
 app.listen(port, () => console.log(`Running Express Server at ${port}`));
 

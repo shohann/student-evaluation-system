@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getQuizes, setQuiz } = require('../controllers/quizController');
+const { getQuizes, setQuiz, renderSetQuiz } = require('../controllers/quizController');
 const { checkCurrentUser, authorize } = require('../middlewares/authorize')
 
 router.route('/quizes/:groupId')
@@ -7,4 +7,8 @@ router.route('/quizes/:groupId')
       .post(checkCurrentUser,setQuiz)
         // .delete()
 
+router.route('/quizes/set-quizes/:groupId')
+      .get(checkCurrentUser, renderSetQuiz);
+
 module.exports = router;
+

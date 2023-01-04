@@ -19,7 +19,7 @@ router.route('/groups')
 router.route('/show-groups')
     .get(checkCurrentUser, renderGroups)
 
-router.route('/groups/quiz').get(checkCurrentUser, renderQuiz);
+// router.route('/groups/quiz').get(checkCurrentUser, renderQuiz); //<=
     
 router.route('/groups/:groupId')
     .get(authorize, member, getGroup) // get single group and its all members

@@ -22,15 +22,15 @@ module.exports.renderGroups = async (req, res) => {
     }
 };
 
-module.exports.renderQuiz = async (req, res) => {
-    try {
-        // res.render('quiz');
-        res.render('create-quiz');
-    } catch (error) {
-        console.log(error);
-        res.send(error);
-    }
-}
+// module.exports.renderQuiz = async (req, res) => {
+//     try {
+//         // res.render('quiz');
+//         res.render('create-quiz');
+//     } catch (error) {
+//         console.log(error);
+//         res.send(error);
+//     }
+// }
 
 ///////////////////////////
 
