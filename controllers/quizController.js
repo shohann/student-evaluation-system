@@ -1,4 +1,5 @@
 const { fetchAllQuizesIdByGroupId,
+        fetchSingleQuizByQuizId,
         createQuizByGroupId } 
         = require('../services/quizService');
 const { createQuestions, 
@@ -6,6 +7,25 @@ const { createQuestions,
         = require('../services/questionService');
 const { createOptions } = require('../services/optionSevice');
 const { createAnswers } = require('../services/answerService');
+
+module.exports.renderSetQuizForm = async (req, res) => {
+    const quizId = req.params.quizId;
+    try {
+        const quiz = await fetchSingleQuizByQuizId(quizId);
+        const questions = quiz.questions;
+        res.render('quiz-form', { questions: questions, quizId : quizId});
+    } catch(error) {
+        res.send(error);
+        console.log(error);
+    }
+    
+};
+
+module.exports.setQuizForm = async (req, res) => {
+    console.log(req.body);
+    res.json(req.body)
+};
+
 
 module.exports.getQuizes = async (req, res) => {
     const groupId = req.params.groupId;

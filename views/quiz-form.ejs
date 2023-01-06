@@ -1,0 +1,62 @@
+<%- include('partials/header'); -%>
+
+
+<form id="quiz-form">
+  <% for(let i = 0; i < questions.length; i++ ){ %>
+    <div >
+      <p class="question-txt"><strong><%=i+1%>.<%= questions[i].question_text  %> </strong></p>
+      <input class="user-input" type="radio" id="<%= questions[i].options[0].id  %>" name="<%= questions[i].id  %>" value="A"><label for="<%= questions[i].options[0].id  %>"><%= questions[i].options[0].txt  %></label><br>
+      <input class="user-input" type="radio" id="<%= questions[i].options[1].id  %>" name="<%= questions[i].id  %>" value="B"><label for="<%= questions[i].options[1].id  %>"><%= questions[i].options[1].txt  %></label><br>
+      <input class="user-input"type="radio" id="<%= questions[i].options[2].id  %>" name="<%= questions[i].id  %>" value="C"><label for="<%= questions[i].options[2].id  %>"><%= questions[i].options[2].txt  %></label>
+      <br>
+      <input class="user-input" type="radio" id="<%= questions[i].options[3].id  %>" name="<%= questions[i].id  %>" value="D"><label for="<%= questions[i].options[3].id  %>"><%= questions[i].options[3].txt  %></label>
+    </div>
+    <br>
+    
+  <% } %>
+  <br>
+  <input class="quiz-form-submit" type="submit" value="SUBMIT">
+</form>
+
+
+<%- include('partials/footer'); -%>
+
+
+<script>
+  const response = []
+  const quizId = location.pathname.split('/')[4];
+  console.log(quizId);
+  const quizForm = document.getElementById('quiz-form')
+  const userInputs = document.getElementsByClassName('user-input');
+  
+  quizForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    for(i = 0; i < userInputs.length; i++) {
+      if(userInputs[i].checked) {
+        response.push(userInputs[i].value)
+        // console.log(userInputs[i].value);
+      }
+    }
+
+    try {
+      const res = await fetch(`/api/quizes/set-quiz-form/${quizId}`, { 
+        method: 'POST', 
+        body: JSON.stringify({ response: response }),
+        headers: {'Content-Type': 'application/json'}
+      });
+
+      const data = await res.json();
+
+      if (data) {
+        console.log(data);
+        // location.assign('/');
+      }
+
+
+    } catch(error) {
+      console.log(error);
+    }
+
+  });
+</script>

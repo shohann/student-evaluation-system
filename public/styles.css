@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 body{
+  height: 150%;
   margin: 20px 40px;
   font-size: 1.2rem;
   letter-spacing: 1px;
@@ -69,7 +70,7 @@ form{
   font-size: 1em;
   width: 30%;
 }
-input{
+/* input{
   padding: 10px 12px;
   border-radius: 4px;
   border: 1px solid #ddd;
@@ -79,7 +80,7 @@ input{
 label{
   display: block;
   margin: 20px 0 10px;
-}
+} */
 button{
   margin-top: 30px;
   border-radius: 36px;
@@ -238,7 +239,7 @@ footer{
 /* input[type="text"]{
   padding: 10px;
   margin: 10px auto;
-  display: block;
+  display: block                                                                                                                                                                                                                                        bbbbbbbbbbbbbbbb                                                                                                                                                                                                                                                                                   ;
   border-radius: 5px;
   border: 1px solid lightgrey;
   background: none;
@@ -262,3 +263,38 @@ input[type="text"]:focus {
 .controls a i.fa-minus {
   margin-right: 5px;
 }
+
+/* Quiz Form */
+
+
+#quiz-form {
+  width: 1000px;
+  margin: 0 auto;
+  background: #44475a;
+  padding: 55px;
+  border-radius: 10px;
+}
+
+.user-input {
+  margin: 8px;
+}
+
+
+
+.question-txt {
+  font-size:larger;
+  margin-bottom: 15px;
+}
+
+.quiz-form-submit {
+  display: block;
+  border: 0;
+  padding: 1em 2em;
+  background: tomato;
+  border-radius: 7px;
+  outline: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: .75em;
+}
+

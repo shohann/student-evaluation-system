@@ -1,5 +1,38 @@
 const { Quiz } = require('../utils/dbInit');
 
+module.exports.fetchSingleQuizByQuizId = async (quizId) => {
+    return await Quiz.findUnique({
+        where: {
+            id : quizId
+        },
+        include: {
+            questions: {
+                include: {
+                    options: true
+                }
+            }
+        }
+    });
+};
+
+// const fetchSingleQuizByQuizId = async (quizId) => {
+//     const quiz =  await Quiz.findUnique({
+//         where: {
+//             id : quizId
+//         },
+//         include: {
+//             questions: {
+//                 include: {
+//                     options: true
+//                 }
+//             }
+//         }
+//     });
+//     console.log(quiz);
+// };
+
+// fetchSingleQuizByQuizId('ebfd42a8-ad40-455a-a76a-77126763ee49')
+
 module.exports.fetchAllQuizesIdByGroupId = async (groupId) => {
     return await Quiz.findMany({
         where: {
