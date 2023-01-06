@@ -125,7 +125,7 @@ header .btn{
   display: inline-block;
   font-size: 0.8em;
 }
-.recipes{
+/* .recipes{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 30px;
@@ -144,15 +144,12 @@ header .btn{
 .recipe img{
   width: 100px;
   margin: -30px auto 20px;
-}
+} */
 footer{
   text-align: center;
   margin-top: 120px;
   color: #aaa;
 }
-
-
-
 
 
 .logo{
