@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<div style="border-bottom: 1px solid white;">
+<div style="border-bottom: 1px solid white; border-top: 1px solid white; padding-top: 10px;">
 	<div>
 		<h1>Groups</h1>
 		<br>
@@ -9,7 +9,7 @@
 <br>
 
 <div style="padding-left: 5px;">
-	<button type="button" class="card-btn" id="create-btn" style="display: block;"> Create </button>
+	<button  type="button" class="card-btn" id="create-btn" style="display: block;"> Create </button>
 	<br>
 	<br>
 	<div class="verticle-btn" id="new-group" style="display: none; padding-bottom: 45px;">
@@ -20,9 +20,6 @@
 </div>
 
   <div class="main">
-	
-
-
 	<% if (groups.length > 0) { %>
 	  <% groups.forEach(group => { %>
 		 <div class="group-card">
@@ -93,3 +90,5 @@
 
 
 </script>
+
+<script src="https://kit.fontawesome.com/2ddde9c59e.js" crossorigin="anonymous"></script>
