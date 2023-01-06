@@ -23,7 +23,7 @@
 
 
 <script>
-  const response = []
+  
   const quizId = location.pathname.split('/')[4];
   console.log(quizId);
   const quizForm = document.getElementById('quiz-form')
@@ -32,10 +32,11 @@
   quizForm.addEventListener('submit', async function (e) {
     e.preventDefault();
 
+    const response = []
+
     for(i = 0; i < userInputs.length; i++) {
       if(userInputs[i].checked) {
         response.push(userInputs[i].value)
-        // console.log(userInputs[i].value);
       }
     }
 
@@ -49,7 +50,6 @@
       const data = await res.json();
 
       if (data) {
-        console.log(data);
         // location.assign('/');
       }
 

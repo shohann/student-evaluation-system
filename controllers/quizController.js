@@ -7,6 +7,8 @@ const { createQuestions,
         = require('../services/questionService');
 const { createOptions } = require('../services/optionSevice');
 const { createAnswers } = require('../services/answerService');
+const { createResponse } = require('../services/responseService');
+const { createResult } = require('../services/resultService');
 
 module.exports.renderSetQuizForm = async (req, res) => {
     const quizId = req.params.quizId;
@@ -18,13 +20,29 @@ module.exports.renderSetQuizForm = async (req, res) => {
         res.send(error);
         console.log(error);
     }
-    
+};
+
+const calculateMarks = () => {
+    return 100;
 };
 
 module.exports.setQuizForm = async (req, res) => {
-    console.log(req.body);
-    res.json(req.body)
+    const userResponse = req.body.response;
+    const quizId = req.params.quizId;
+    const userId = req.user.id;
+
+    try {
+        const response = await createResponse(userId, quizId, userResponse);
+        const marks = calculateMarks();
+        const result = await createResult(userId, quizId, response.id, marks);
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 };
+
+// userId, quizId, responseId, marks
 
 
 module.exports.getQuizes = async (req, res) => {
