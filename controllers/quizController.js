@@ -5,25 +5,44 @@ const { fetchAllQuizesIdByGroupId,
 const { createQuestions, 
         fetchQuestionsByQuizId } 
         = require('../services/questionService');
+const { fetchAllQuestionsByQuizId } = require('../services/questionService');
 const { createOptions } = require('../services/optionSevice');
 const { createAnswers } = require('../services/answerService');
 const { createResponse } = require('../services/responseService');
 const { createResult } = require('../services/resultService');
+const { fetchCreatorMembershipStatus } = require('../services/groupMembershipService')
 
 module.exports.renderSetQuizForm = async (req, res) => {
     const quizId = req.params.quizId;
     try {
+        const creator = await fetchCreatorMembershipStatus(req.user.id);
         const quiz = await fetchSingleQuizByQuizId(quizId);
         const questions = quiz.questions;
-        res.render('quiz-form', { questions: questions, quizId : quizId});
+        res.render('quiz-form', { questions: questions, quizId : quizId, creator: creator});
     } catch(error) {
         res.send(error);
         console.log(error);
     }
 };
 
-const calculateMarks = () => {
-    return 100;
+const calculateMarks = (questions, userResponse) => {
+    let marks = 0;
+    
+    for (let i = 0; i < userResponse.length; i++) {
+        if (userResponse[i] === 'A') {
+            marks = marks + questions[i].options[0].mark;
+
+        } else if (userResponse[i] === 'B') {
+            marks = marks + questions[i].options[1].mark;
+
+        } else if (userResponse[i] === 'C') {
+            marks = marks + questions[i].options[2].mark;
+        } else {
+            marks = marks + questions[i].options[3].mark;
+        }
+    }
+
+    return marks;
 };
 
 module.exports.setQuizForm = async (req, res) => {
@@ -32,8 +51,10 @@ module.exports.setQuizForm = async (req, res) => {
     const userId = req.user.id;
 
     try {
+
+        const questions = await fetchAllQuestionsByQuizId(quizId)
+        const marks = calculateMarks(questions, userResponse);
         const response = await createResponse(userId, quizId, userResponse);
-        const marks = calculateMarks();
         const result = await createResult(userId, quizId, response.id, marks);
         res.send(result);
     } catch (error) {

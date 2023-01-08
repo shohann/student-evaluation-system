@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 
-<div style="border-bottom: 1px solid white;">
+<div style="border-bottom: 1px solid white; border-top: 1px solid white; padding-top: 10px;">
 	<div>
 		<h1>Quizes</h1>
 		<br>
@@ -10,7 +10,11 @@
 
 <!-- <button type="button" class="btn" id="create-btn" style="display: block;"> <a href="/api/groups/quiz">Create</a> </button> -->
 
-<button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button>
+<% if (user.role === 'TEACHER') { %>
+	<button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button>
+<% } %>
+
+<!-- <button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button> -->
 
 
 <br>

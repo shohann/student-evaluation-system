@@ -14,7 +14,7 @@ const { getGroups,
 
 router.route('/groups')
     .get(authorize,getGroups) // valid only for creator and student.student see memberships and techer see ownerships
-    .post(checkCurrentUser ,setGroup)
+    .post(checkCurrentUser, teacher ,setGroup)
 
 router.route('/show-groups')
     .get(checkCurrentUser, renderGroups)

@@ -8,16 +8,18 @@
 </div>
 <br>
 
-<div style="padding-left: 5px;">
-	<button  type="button" class="card-btn" id="create-btn" style="display: block;"> Create </button>
-	<br>
-	<br>
-	<div class="verticle-btn" id="new-group" style="display: none; padding-bottom: 45px;">
-		<input class="txt-input" type="text" name="group"placeholder="Group Name" id="group-input">
-		<button class="card-btn" type="button" id="group-submit"> Submit </button>
-		<button class="card-btn" type="button" id="cancel-new"> Cancel </button>
+<% if (user.role === 'TEACHER') { %>
+	<div style="padding-left: 5px;">
+		<button  type="button" class="card-btn" id="create-btn" style="display: block;"> Create </button>
+		<br>
+		<br>
+		<div class="verticle-btn" id="new-group" style="display: none; padding-bottom: 45px;">
+			<input class="txt-input" type="text" name="group"placeholder="Group Name" id="group-input">
+			<button class="card-btn" type="button" id="group-submit"> Submit </button>
+			<button class="card-btn" type="button" id="cancel-new"> Cancel </button>
+		</div>
 	</div>
-</div>
+<% } %>
 
   <div class="main">
 	<% if (groups.length > 0) { %>
@@ -56,37 +58,44 @@
 	const groupInput = document.getElementById('group-input');
 	const submitGroup = document.getElementById('group-submit');
 
-
-
-	createButton.addEventListener('click', (e) => {
-		createButton.style.display = 'none';
-		newGroup.style.display = 'block';
-	});
-
-	cancelButton.addEventListener('click', (e) => {
-		createButton.style.display = 'block';
-		newGroup.style.display = 'none';
-	})
-
-	submitGroup.addEventListener('click', async (e) => {
-		const name = groupInput.value;
-		try {
-			const res = await fetch('/api/groups', { 
-				method: 'POST', 
-				body: JSON.stringify({ name }),
-				headers: {'Content-Type': 'application/json'}
-			});
-			const data = await res.json();
-
-			if (data) {
-				location.assign('/api/show-groups');
+	if (createButton) {
+		createButton.addEventListener('click', (e) => {
+			if (createButton === null) {
+				console.log('Its NULL');
 			}
-
-			}
-			catch (err) {
-			console.log(err);
-		}
+			createButton.style.display = 'none';
+			newGroup.style.display = 'block';
 		});
+	}
+
+	if (cancelButton) {
+		cancelButton.addEventListener('click', (e) => {
+			createButton.style.display = 'block';
+			newGroup.style.display = 'none';
+		})
+	}
+
+	if (submitGroup) {
+		submitGroup.addEventListener('click', async (e) => {
+			const name = groupInput.value;
+			try {
+				const res = await fetch('/api/groups', { 
+					method: 'POST', 
+					body: JSON.stringify({ name }),
+					headers: {'Content-Type': 'application/json'}
+				});
+				const data = await res.json();
+
+				if (data) {
+					location.assign('/api/show-groups');
+				}
+
+				}
+				catch (err) {
+				console.log(err);
+			}
+		});
+	}
 
 
 </script>

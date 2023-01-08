@@ -14,6 +14,17 @@ module.exports.fetchQuestionsByQuizId = async (quizId) => {
     });
 };
 
+module.exports.fetchAllQuestionsByQuizId = async (quizId) => {
+    return await Question.findMany({
+        where: {
+            quizId: quizId,
+        },
+        include: {
+            options: true
+        }
+    })
+}
+
 
 
 

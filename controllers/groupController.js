@@ -10,11 +10,8 @@ const { fetchSingleGroupDetailsById,
         = require('../services/groupService');
 
 module.exports.renderGroups = async (req, res) => {
-    const userId = 'b3109dd4-8cda-411f-be38-3ee566aff2e9';
     try {
-        // const groups = ['dsndsn', 'sdshds', 'abc', 'usdjsjs', 'sjdjsk']
         const groups = await fetchAllGroupMembershipByMemberId(req.user.id);
-        // groups.push('Working');
         res.render('dashboard', { groups: groups });
     } catch (error) {
         console.log(error);
@@ -35,10 +32,6 @@ module.exports.renderGroups = async (req, res) => {
 ///////////////////////////
 
 module.exports.setGroup = async (req, res) => {
-     // ensure current logged in user is the creator of the group
-    // Only a teacher will set a group
-    // createTeacherMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de' );
-    // const mockUserId = '1ada1270-9bb2-4774-bc65-a568bf4448d2';
     const groupName = req.body.name;
     const userId = req.user.id;
 

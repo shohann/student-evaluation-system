@@ -19,10 +19,11 @@
 </div>
 
 <form class="wrapper" style="display: none;" id="question-field">
-    <h2 >Questions</h2>
-    <label id="question-head" for="question">Question 1</label>
+    <label id="question-head" for="question">Question</label>
     <input type="text" name="question" placeholder="Question" />
     <br>
+    <br>
+    <p>Options</p>
     <br>
     <!-- <label for="question-1">Option A</label> -->
     <input type="text" name="Option A" placeholder="Option A" />
@@ -40,13 +41,33 @@
     <input type="text" name="Option D" placeholder="Option D" />
     <br>
     <br>
+    <p>Answer</p>
+    <br>
     <!-- <label for="question-1">Answer</label> -->
-    <input type="text" name="Answer" placeholder="Answer" />
+    <input type="text" name="Answer" placeholder="Correct Option" />
     <br>
     <br>
 
+    <!--  -->
+    <p>Marks</p>
+    <br>
+    <input type="text" name="Option A Mark" placeholder="Mark for Option A" />
+    <br>
+    <br>
+    <input type="text" name="Option B Mark" placeholder="Mark for Option B" />
+    <br>
+    <br>
+    <input type="text" name="Option C Mark" placeholder="Mark for Option C" />
+    <br>
+    <br>
+    <input type="text" name="Option D Mark" placeholder="Mark for Option D" />
+    <br>
+    <br>
+
+
+    <!--  -->
+
     <input class="card-btn" id="reset" style="display: block;" type="reset" value="Next">
-    
     <input id="set" style="display: none;" type="submit" value="Submit">
   </form>
 
@@ -57,30 +78,30 @@
     const quizNameInput = document.getElementById('quiz-name');
     const quizNumInput = document.getElementById('q-num');
     const quizForm = document.getElementById('create');
+
+    const questionHead = document.getElementById('question-head')
     const questionFields = document.getElementById('question-field');
     const questionSubmit = document.getElementById('form-submit');
     const resetForm = document.getElementById('reset');
     const setForm = document.getElementById('set');
+
     const groupId = window.location.pathname.split('/')[4];
     const quizBody = [];
     const main = {};
     let count = 0;
     let last = 0;
 
-
     createButton.addEventListener('click', function (e) {
         count++;
         last = parseInt(quizNumInput.value);
+        questionHead.innerText = `Question ${count}`;
         quizForm.style.display = 'none';
         questionFields.style.display = 'block';
-
         if (count === last) {
             resetForm.style.display = 'none'
             setForm.style.display = 'block';
         }
-
     });
-
     questionFields.addEventListener('reset', function (e) {
         let question_text = e.target[0].value;
         let answer = e.target[5].value;
@@ -89,7 +110,8 @@
             let option; 
             options.push({
                 option: e.target[i].name.split(' ')[1],
-                txt: e.target[i].value
+                txt: e.target[i].value,
+                mark: parseInt(e.target[i + 5].value)
             })
         }
         quizBody.push({
@@ -97,14 +119,12 @@
             options: options, 
             answer: answer
         });
-
         count++;
-
+        questionHead.innerText = `Question ${count}` 
         if (count === last) {
             resetForm.style.display = 'none'
             setForm.style.display = 'block';
         }
-
     })
     questionFields.addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -115,7 +135,8 @@
             let option; 
             options.push({
                 option: e.target[i].name.split(' ')[1],
-                txt: e.target[i].value
+                txt: e.target[i].value,
+                mark: parseInt(e.target[i + 5].value)
             })
         }
         quizBody.push({
@@ -123,7 +144,6 @@
             options: options, 
             answer: answer
         });
-
         main.name = quizNameInput.value;
         main.quiz = quizBody;
         
@@ -134,19 +154,13 @@
                 headers: {'Content-Type': 'application/json'}
             });
             const data = await res.json();
-
             if (data) {
                 location.assign('/api/show-groups');
             }
-
         }
         catch (err) {
             console.log(err);
         }
         
     });
-
 </script>
-
-
-
