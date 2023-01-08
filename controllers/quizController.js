@@ -63,8 +63,6 @@ module.exports.setQuizForm = async (req, res) => {
     }
 };
 
-// userId, quizId, responseId, marks
-
 
 module.exports.getQuizes = async (req, res) => {
     const groupId = req.params.groupId;
