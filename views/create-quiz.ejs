@@ -10,6 +10,17 @@
       <h4>Number of Questions</h4>
       <br>
       <input id="q-num" type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Number of Questions">
+      <br>
+      <br>
+      <h4>Category</h4>
+      <br>
+      <select id="category" name="category">
+        <option value="ACHIEVEMENT">Achievement Test</option>
+        <option value="PERSONALITY">Personality Test</option>
+        <option value="PSYCHOLOGICAL">Psychological Test</option>
+        <option value="IQ">IQ Test</option>
+      </select>
+
   
     </div>
 
@@ -68,7 +79,7 @@
     <!--  -->
 
     <input class="card-btn" id="reset" style="display: block;" type="reset" value="Next">
-    <input id="set" style="display: none;" type="submit" value="Submit">
+    <input class="card-btn" id="set" style="display: none;" type="submit" value="Submit">
   </form>
 
 <%- include('partials/footer'); -%>
@@ -84,6 +95,8 @@
     const questionSubmit = document.getElementById('form-submit');
     const resetForm = document.getElementById('reset');
     const setForm = document.getElementById('set');
+
+    const categoryInput = document.getElementById('category');
 
     const groupId = window.location.pathname.split('/')[4];
     const quizBody = [];
@@ -145,6 +158,7 @@
             answer: answer
         });
         main.name = quizNameInput.value;
+        // main.category = categoryInput.value;
         main.quiz = quizBody;
         
         try {

@@ -11,9 +11,10 @@
     <ul>
       <% if (user) { %>
         <!-- <li>Welcome, <%= user.email %></li> -->
-        <li><a href="/api/show-groups">groups</a></li>
-        <li><a href="/">Results</a></li>
-        <li><a href="/">Responses</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/api/show-groups">Groups</a></li>
+        <li><a href="/api/results">Results</a></li>
+        <li><a href="/">Profile</a></li>
         <li><a href="/api/logout" id="logout-btn">Log out</a></li>
       <% } else { %>
         <li><a href="/api/users/signin" id="login-btn">Log in</a></li>

@@ -8,6 +8,7 @@ module.exports.fetchResultsByUserId = async (userId) => {
     });
 };
 
+
 module.exports.createResult = async (userId, quizId, responseId, marks) => {
     return await Result.create({
         data: {
@@ -18,6 +19,10 @@ module.exports.createResult = async (userId, quizId, responseId, marks) => {
         }
     });
 }
+
+
+
+
 
 // const createResult = async (userId, quizId, responseId, marks) => {
 //     const userResult = await Result.create({
