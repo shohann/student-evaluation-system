@@ -86,6 +86,7 @@ model Option {
   id  String @default(uuid()) @unique @id
   option String
   txt String
+  mark Int
   question Question @relation(fields: [questionId], references: [id])
   questionId String
 }
@@ -121,7 +122,7 @@ model Result {
   // quiz id 
   // student Id -> user Id -> might duplicate
   // Group Id
-  // marks
+  // marks -> achieved marks after quiz
   // negativity
   // Before result there must be a response
   // status : pass or fail

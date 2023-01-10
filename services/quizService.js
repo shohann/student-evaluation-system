@@ -26,10 +26,11 @@ module.exports.fetchAllQuizesIdByGroupId = async (groupId) => {
 };
 
 
-module.exports.createQuizByGroupId = async (groupId, name) => {
+module.exports.createQuizByGroupId = async (groupId, name, category) => {
     return await Quiz.create({
         data: {
             name: name,
+            category_name: category,
             full_marks: 40,
             pass_marks: 10,
             groupId: groupId

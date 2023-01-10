@@ -11,6 +11,7 @@ const { createAnswers } = require('../services/answerService');
 const { createResponse } = require('../services/responseService');
 const { createResult } = require('../services/resultService');
 const { fetchCreatorMembershipStatus } = require('../services/groupMembershipService')
+const { createCategoryByQuizId } = require('../services/categoryService')
 
 module.exports.renderSetQuizForm = async (req, res) => {
     const quizId = req.params.quizId;
@@ -134,10 +135,11 @@ module.exports.renderSetQuiz = async (req, res) => {
 module.exports.setQuiz = async (req, res) => {
     const groupId = req.params.groupId;
     const name = req.body.name;
+    const category = req.body.category;
     const quiz = req.body.quiz;
 
     try {
-        const newQuiz = await createQuizByGroupId(groupId, name);
+        const newQuiz = await createQuizByGroupId(groupId, name, category);
         const questions = filterQuestionTexts(quiz, newQuiz);
         const createdQuestions = await createQuestions(questions); // no var
         const fetchedQuestions = await fetchQuestionsByQuizId(newQuiz.id);

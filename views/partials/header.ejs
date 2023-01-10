@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-  <nav>
+  <nav >
     <h1><a href="/">Student Evaluation System</a></h1>
     <ul>
       <% if (user) { %>
@@ -14,7 +14,7 @@
         <li><a href="/">Home</a></li>
         <li><a href="/api/show-groups">Groups</a></li>
         <li><a href="/api/results">Results</a></li>
-        <li><a href="/">Profile</a></li>
+        <li><a href="/api/users/profile">Profile</a></li>
         <li><a href="/api/logout" id="logout-btn">Log out</a></li>
       <% } else { %>
         <li><a href="/api/users/signin" id="login-btn">Log in</a></li>

@@ -1,4 +1,4 @@
-const { createUser, fetchSingleUserById } = require('../services/userService');
+const { createUser, fetchSingleUserByEmail, fetchSingleByUserId } = require('../services/userService');
 const { genSalt, hash, compare } = require('bcrypt');
 const { generateJWT } = require('../utils/jwt');
 const { saltRound } = require('../config/default');
@@ -48,7 +48,7 @@ module.exports.renderSignUp = async (req, res) => {
 
 module.exports.signIn = async (req, res) => {
     try {
-        const user = await fetchSingleUserById(req.body.email);
+        const user = await fetchSingleUserByEmail(req.body.email); // email
         if (!user || !(await compare(req.body.password, user.password))) {
             throw new Error('Invalid email or password')
         }
@@ -77,8 +77,22 @@ module.exports.renderSignIn = async (req, res) => {
     }
 }
 
+// Profile
+module.exports.getProfilePage = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const profile = await fetchSingleByUserId(userId);
+        res.render('profile', { profile: profile });
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
+    
+}
 
 module.exports.logout = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
     res.redirect('/');
 }
+

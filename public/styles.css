@@ -306,30 +306,14 @@ input[type="text"]:focus {
 
 
 /* Table */
-/* h1 {
-  font-size:3em; 
+.current-page h1 {
+  font-size:2em; 
   font-weight: 300;
   line-height:1em;
+  padding: 0;
   text-align: center;
   color: #4DC3FA;
 }
-
-h2 {
-  font-size:1em; 
-  font-weight: 300;
-  text-align: center;
-  display: block;
-  line-height:1em;
-  padding-bottom: 2em;
-  color: #FB667A;
-}
-
-h2 a {
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #FB667A;
-  text-decoration: none;
-} */
 
 .blue { color: #185875; }
 .yellow { color: #FFF842; }
@@ -404,9 +388,20 @@ h2 a {
   transition-timing-function: line;
 }
 
+/* New Nav */
 #category {
   padding: 10px;
   width: 50%;
   border-radius: 5px;
   font-size: medium;
 }
+
+.profile {
+  width: 300px;
+  margin: 0px auto;
+  padding: 50px;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  background: #44475a;
+}
+

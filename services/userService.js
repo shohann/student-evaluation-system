@@ -11,11 +11,23 @@ module.exports.createUser = async (email, name, password) => {
     });
 };
 
-module.exports.fetchSingleUserById = async (email) => {
-    //it uses the email not Id
+module.exports.fetchSingleUserByEmail = async (email) => {
     return await User.findUnique({
         where: {
             email: email
+        }
+    });
+};
+
+module.exports.fetchSingleByUserId = async (id) => {
+    return await User.findUnique({
+        where: {
+            id: id,
+        },
+        select: {
+            name: true,
+            email: true,
+            role: true
         }
     });
 };

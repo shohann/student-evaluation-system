@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { signUp, renderSignUp, signIn, renderSignIn, logout } = require('../controllers/userControllers');
+const { signUp, renderSignUp, signIn, renderSignIn, logout, getProfilePage } = require('../controllers/userControllers');
 const { checkCurrentUser } = require('../middlewares/authorize');
 
 router.route('/users/signup')
@@ -10,6 +10,10 @@ router.route('/users/signin')
       .post(checkCurrentUser,signIn)
       .get(checkCurrentUser,renderSignIn);
 
-router.route('/logout').get(checkCurrentUser,logout);
+router.route('/users/profile')
+      .get(checkCurrentUser, getProfilePage)
+
+router.route('/logout')
+      .get(checkCurrentUser,logout);
       
 module.exports = router;

@@ -1,0 +1,22 @@
+<%- include('partials/header'); -%>
+
+<div class="current-page" style="border-bottom: 1px solid white; border-top: 1px solid white; padding-top: 10px;">
+	<div>
+		<h1>Profile</h1>
+		<br>
+	</div>
+</div>
+<br>
+
+
+<div class="profile">
+    <img src="/contact.png" alt="Avatar" style="width:100%; ">
+    <h3>Name: <%= profile.name %></h3>
+    <br>
+    <h3>Email: <%= profile.email %></h3>
+    <br>
+    <h3>Role: <%= profile.role %></h3>
+    <button>Edit</button>
+</div>
+
+<%- include('partials/footer'); -%>
