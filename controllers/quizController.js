@@ -1,6 +1,7 @@
 const { fetchAllQuizesIdByGroupId,
         fetchSingleQuizByQuizId,
-        createQuizByGroupId } 
+        createQuizByGroupId,
+        deleteQuizById } 
         = require('../services/quizService');
 const { createQuestions, 
         fetchQuestionsByQuizId } 
@@ -158,4 +159,15 @@ module.exports.setQuiz = async (req, res) => {
         console.log(error);
         res.send(error);
     }
-}
+};
+
+module.exports.removeQuiz = async (req, res) => {
+    const quizId = req.params.quizId;
+    try {
+        const deletedQuiz = await deleteQuizById(quizId);
+        res.send(deletedQuiz);
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
+};

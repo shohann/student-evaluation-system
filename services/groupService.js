@@ -18,13 +18,14 @@ module.exports.createGroup = async (groupName) => {
 };
 
 module.exports.deleteSingleGroupById = async (groupId) => {
-    // first delete all membership then delete the group
     return  await Group.delete({
         where: {
             id: groupId
         }
     });
 }
+
+
 
 
 

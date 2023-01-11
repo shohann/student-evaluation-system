@@ -1,8 +1,6 @@
 const { fetchAllGroupMembershipByMemberId, 
         createTeacherMembershipById,
-        createStudentMembershipById,
-        deleteAllGroupMembershipByGroupId,
-        deleteSingleStudentMembershipById } 
+        createStudentMembershipById } 
         = require('../services/groupMembershipService');
 const { fetchSingleGroupDetailsById, 
         createGroup,
@@ -18,18 +16,6 @@ module.exports.renderGroups = async (req, res) => {
         res.send(error);
     }
 };
-
-// module.exports.renderQuiz = async (req, res) => {
-//     try {
-//         // res.render('quiz');
-//         res.render('create-quiz');
-//     } catch (error) {
-//         console.log(error);
-//         res.send(error);
-//     }
-// }
-
-///////////////////////////
 
 module.exports.setGroup = async (req, res) => {
     const groupName = req.body.name;
@@ -81,18 +67,11 @@ module.exports.getGroups = async (req, res) => {
 };
 
 module.exports.removeGroup = async (req, res) => {
-    // ensure current logged in user is the creator of the group
-    // fisrt all the memberships/other relationships associated to that group 
-    // then delete the group
     const groupId = req.params.groupId;
+    
     try {
-        const deletedMembers = await deleteAllGroupMembershipByGroupId(groupId);
         const deletedGroup = await deleteSingleGroupById(groupId);
-        // del res, result, quiz for it
-        res.send({
-            deletedMembers,
-            deletedGroup
-        })
+        res.send(deletedGroup)
     } catch (error) {
         console.log(error)
         res.send(error)
@@ -105,25 +84,15 @@ module.exports.setMember = async (req, res) => {
 
     try {
         const studentMembership = await createStudentMembershipById(userId, groupId);
-        res.status(201).json(studentMembership);
+        // res.status(201).json(studentMembership);
+        res.redirect('/api/show-groups');
     } catch (error) {
         console.log(error);
         res.send(error);
     }
 };
 
-module.exports.removeMember = async (req, res) => {
-    const groupId = req.params.groupId;
-    const studentId = req.params.studentId;
-    const userId = req.user.id;
 
-    try {
-        const deletedMember = await deleteSingleGroupById(studentId, groupId);
-    } catch(error) {
-        console.log(error);
-        res.send(error);
-    }
-};
 
 
 

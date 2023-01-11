@@ -21,33 +21,20 @@
 	</div>
 <% } %>
 
-  <div class="main">
-	<% if (groups.length > 0) { %>
-	  <% groups.forEach(group => { %>
-		 <div class="group-card">
-			<div class="group-container">
-
-			  <div>
-				<h2 style="padding: 15px;"><%= group.group.name %></h2>
-			  </div>
-
-			  <div class="verticle-btn">
-				<button class="card-btn"><a href="/api/quizes/<%= group.group.id %>">Open</a></button>
-			  	<button class="card-btn">Delete</button>
-			  </div>
-			  
-			</div>
-		   </div>
-		  <br>
-		  <br>
-	  <% }) %>
-	<% } else { %>
-		<p>There are no  to display...</p>
-	<% } %>
-
-  </div>
 
 
+  <% if (groups.length > 0) { %>
+	<% groups.forEach(group => { %>
+		<nav style="background-color: #323C50; padding: 20px;">
+			<h1><a href="/api/quizes/<%= group.group.id %>"><%= group.group.name %></a></h1>
+			<ul>
+				<li><a href="/api/quizes/<%= group.group.id %>" class="btn">Open</a></li>
+			</ul>
+		  </nav>
+	<% }) %>
+  <% } else { %>
+	  <p>Nothing  to display...</p>
+  <% } %>
 
 <%- include('partials/footer'); -%>
 
@@ -100,4 +87,4 @@
 
 </script>
 
-<script src="https://kit.fontawesome.com/2ddde9c59e.js" crossorigin="anonymous"></script>
+<!-- <script src="https://kit.fontawesome.com/2ddde9c59e.js" crossorigin="anonymous"></script> -->

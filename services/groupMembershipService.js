@@ -12,8 +12,6 @@ module.exports.fetchAllGroupMembershipByMemberId = async (userId) => {
     });
 };
 
-// 184369c1-80ff-48da-a498-700f1b6c9409
-
 module.exports.fetchCreatorMembershipStatus = async (userId) => {
     return await GroupMembership.findFirst({
         where: {
@@ -60,10 +58,15 @@ module.exports.deleteSingleStudentMembershipById = async (userId, groupId) => {
     });
 };
 
-//////////////////////////////////////////////
-
-const fetchStudentMemberShip = async (userId, groupId) => {
-    // to know all his memberships
+module.exports.fetchMembershipById = async (userId, groupId) => {
+    return await GroupMembership.findUnique({
+        where: {
+            userId_groupId: {
+                userId: userId,
+                groupId: groupId
+            }
+        }
+    });
 }
 
 

@@ -27,7 +27,8 @@ nav{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
+  border-radius: 20px;
 }
 nav ul{
   display: flex;
@@ -54,8 +55,10 @@ nav li a{
 .btn{
   border-radius: 10px;
   background: #4CAF50;
-  padding: 15px;
+  padding: 15px 35px;
 }
+
+
 
 
 .auth-form-header {
@@ -157,7 +160,7 @@ footer{
 
 .main {
   margin: 0 auto;
-  max-width: 1500px;
+  /* max-width: 1500px; */
   height: 200px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
@@ -171,18 +174,14 @@ footer{
 
 .group-container {
   padding: 20px 10px;
-  
-  
-  /* margin:auto; */
 }
 
 .group-card {
   background-color: #3a3a4f;
-  /* background-color: #6272a4; */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.1s;
-  width: 219%;
-  height: 107%;
+  width: 200%;
+  height: 100%;
   border-radius: 7px;
 }
 
@@ -196,7 +195,6 @@ footer{
   border-radius: 15px;
   color: rgb(255, 255, 255);
   padding: 15px 30px;
-  text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 20px;

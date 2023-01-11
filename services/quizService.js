@@ -15,8 +15,6 @@ module.exports.fetchSingleQuizByQuizId = async (quizId) => {
     });
 };
 
-
-
 module.exports.fetchAllQuizesIdByGroupId = async (groupId) => {
     return await Quiz.findMany({
         where: {
@@ -24,7 +22,6 @@ module.exports.fetchAllQuizesIdByGroupId = async (groupId) => {
         }
     });
 };
-
 
 module.exports.createQuizByGroupId = async (groupId, name, category) => {
     return await Quiz.create({
@@ -38,6 +35,13 @@ module.exports.createQuizByGroupId = async (groupId, name, category) => {
     });
 };
 
-// createQuiz('959b2498-9dcd-4f55-b410-702bd52eeae0', 'Quiz-1')
+module.exports.deleteQuizById = async (quizId) => {
+    return await Quiz.delete({
+        where: {
+            id: quizId
+        }
+    })
+};
+
 
 

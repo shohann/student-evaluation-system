@@ -11,7 +11,14 @@
 <!-- <button type="button" class="btn" id="create-btn" style="display: block;"> <a href="/api/groups/quiz">Create</a> </button> -->
 
 <% if (user.role === 'TEACHER') { %>
-	<button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button>
+	<div style="display: flex;  justify-content: flex-start;  gap: 20px;">
+		<button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button>
+
+		<button  type="button" class="card-btn" id="delete-group-btn" style="display: block;"> Delete </button>
+		<button  type="button" class="card-btn" id="join-btn" style="display: block;"> Join Link </button>
+
+	</div>
+
 <% } %>
 
 <!-- <button type="button" class="card-btn" id="create-btn" style="display: block;"> <a href="/api/quizes/set-quizes/<%= groupId %>">Create</a> </button> -->
@@ -23,17 +30,17 @@
 	  <% quizes.forEach(quiz => { %>
 		 <div class="group-card">
 			<div class="group-container">
-			  <h2 class="snippet"><%= quiz.name %></h2>
+			  <h2 ><%= quiz.name %></h2>
 			  <br>
-			  <h3>Category: Achivement Test</h3>
+			  <h3>Category: <%= quiz.category_name %> TEST </h3>
 			  <h3>Total Marks: 50</h3>
 			  <h3>Passing Marks 20</h3>
 			  <h3></h3>
 			<div class="verticle-btn">
-				<button><a href="/api/quizes/set-quiz-form/<%= quiz.id %>">Open</a></button>
+				<button><a href="/api/quizes/set-quiz-form/<%= groupId %>/<%= quiz.id %>">Open</a></button>
 			<!-- quizId -->
 				<!-- <button><a href="/api/quizes/<%= quiz.groupId %>">Open</a></button> -->
-				<button><a href="http://">Remove</a></button>
+				<!-- <button id="remove-quiz" value="<%= quiz.id %>">Remove</button> -->
 			</div>
 
 			</div>
@@ -41,10 +48,67 @@
 		  <br>
 	  <% }) %>
 	<% } else { %>
-		<p>There are no  to display...</p>
+		<p>Nothing  to display...</p>
 	<% } %>
 
   </div>
 
 
 <%- include('partials/footer'); -%>
+
+<script>
+	const joinButton = document.getElementById('join-btn');
+	const deleteGroupButton = document.getElementById('delete-group-btn')
+	const groupId = location.pathname.split('/')[3];
+
+	// const removeQuizButton = document.getElementById('remove-quiz');
+
+	if (joinButton) {
+		joinButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			const link = `http://localhost:3001/api/groups/join/${groupId}`
+			navigator.clipboard.writeText(link);
+		});
+	}
+	
+	// if (removeQuizButton) {
+	// 	removeQuizButton.addEventListener('click', async function (e) {
+	// 		e.preventDefault();
+			
+	// 		const quizId = e.target.value;
+	// 		try {
+	// 			const res = await fetch(`/api/quizes/remove/${groupId}/${quizId}`, {
+	// 				method: 'DELETE', 
+	// 			})
+
+	// 			console.log(res);
+
+
+	// 		} catch (error) {
+	// 			console.log(error);
+	// 		}
+
+	// 	})
+	// }
+
+	if (deleteGroupButton) {
+		deleteGroupButton.addEventListener('click', async (e) => {
+			e.preventDefault();
+			try {
+				const res = await fetch(`/api/groups/${groupId}`, {
+					method: 'DELETE', 
+				})
+
+				if (res) {
+					location.assign('/api/show-groups');
+				}
+
+
+			} catch (error) {
+				console.log(error);
+			}
+		})
+	}
+
+
+</script>

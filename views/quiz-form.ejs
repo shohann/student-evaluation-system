@@ -1,7 +1,9 @@
 <%- include('partials/header'); -%>
-
-
-<form id="quiz-form">
+<br>
+<br>
+<button type="button" class="card-btn" id="delete-quiz-btn" style="display: block;"> Delete </button>
+<!-- Creator only -->
+<form id="quiz-form"> 
   <% for(let i = 0; i < questions.length; i++ ){ %>
     <div >
       <p class="question-txt"><strong><%=i+1%>.<%= questions[i].question_text  %> </strong></p>
@@ -19,6 +21,8 @@
 
   <input class="quiz-form-submit" type="submit" value="SUBMIT">
 
+  <!-- Condtion, permission, protected, participatin, valid quiz -->
+
   <% if (creator.creator === false) { %>
     <!-- <input class="quiz-form-submit" type="submit" value="SUBMIT"> -->
   <% } %>
@@ -30,10 +34,34 @@
 
 
 <script>
-  
-  const quizId = location.pathname.split('/')[4];
+  const groupId = location.pathname.split('/')[4];
+  const quizId = location.pathname.split('/')[5];
   const quizForm = document.getElementById('quiz-form')
   const userInputs = document.getElementsByClassName('user-input');
+  const deleteQuizButton = document.getElementById('delete-quiz-btn');
+
+  if (deleteQuizButton) {
+    deleteQuizButton.addEventListener('click', async function (e) {
+      e.preventDefault();
+      
+      console.log(e);
+
+			try {
+				const res = await fetch(`/api/quizes/remove/${groupId}/${quizId}`, {
+					method: 'DELETE', 
+				})
+
+				if (res) {
+          location.assign(`/api/quizes/${groupId}`);
+        }
+
+
+			} catch (error) {
+				console.log(error);
+			}
+
+    })
+  }
   
   quizForm.addEventListener('submit', async function (e) {
     e.preventDefault();

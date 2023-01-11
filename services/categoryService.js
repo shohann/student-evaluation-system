@@ -10,14 +10,4 @@ module.exports.createCategoryByQuizId = async (quizId, categoryName) => {
     });
 }
 
-// const createCategoryByQuizId = async (quizId, categoryName) => {
-//     const category = await Category.create({
-//         data: {
-//             name: categoryName,
-//             quizId: quizId
-//         }
-//     });
-
-//     console.log(category);
-// }
 

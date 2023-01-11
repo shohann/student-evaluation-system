@@ -18,13 +18,14 @@ router.route('/groups')
 
 router.route('/show-groups')
     .get(checkCurrentUser, renderGroups)
-
-// router.route('/groups/quiz').get(checkCurrentUser, renderQuiz); //<=
     
 router.route('/groups/:groupId')
     .get(authorize, member, getGroup) // get single group and its all members
     .post(authorize, student ,setMember)
-    .delete(removeGroup) // delete single groups with its relations, and members -> complex
+    .delete(checkCurrentUser, removeGroup) // delete single groups with its relations, and members -> complex
+
+router.route('/groups/join/:groupId')
+    .get(checkCurrentUser, member, setMember)
 
 module.exports = router;
 
