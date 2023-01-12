@@ -15,11 +15,13 @@ const { fetchCreatorMembershipStatus } = require('../services/groupMembershipSer
 
 module.exports.renderSetQuizForm = async (req, res) => {
     const quizId = req.params.quizId;
+    const participation =  req.participation;
+
     try {
         const { creator } = await fetchCreatorMembershipStatus(req.user.id);
         const quiz = await fetchSingleQuizByQuizId(quizId);
         const questions = quiz.questions;
-        res.render('quiz-form', { questions: questions, quizId : quizId, creator: creator});
+        res.render('quiz-form', { questions: questions, quizId : quizId, creator: creator, participation: participation});
     } catch(error) {
         res.send(error);
         console.log(error);
@@ -52,11 +54,10 @@ module.exports.setQuizForm = async (req, res) => {
     const userId = req.user.id;
 
     try {
-
         const questions = await fetchAllQuestionsByQuizId(quizId)
         const marks = calculateMarks(questions, userResponse);
         const response = await createResponse(userId, quizId, userResponse);
-        const result = await createResult(userId, quizId, response.id, marks);
+        const result = await createResult(userId, quizId, response.userId_quizId, marks);
         res.send(result);
     } catch (error) {
         console.log(error);

@@ -4,7 +4,9 @@ module.exports.validGroup = async (req, res, next) => {
     const groupId = req.params.groupId;
     try {
         const group = await fetchGroupById(groupId);
-        console.log(group);
+        if (!group) res.status(400).json({
+            msg: 'Invalid Group'
+        });
         next();
     } catch (error) {
         console.log(error);

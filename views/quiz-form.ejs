@@ -20,12 +20,9 @@
   <% } %>
   <br>
 
-  
-
-  <% if (!creator) { %>
+  <% if (!participation &&  !creator) { %>
     <input class="quiz-form-submit" type="submit" value="SUBMIT"> 
-    <!-- Participation & creator , protection -->
-   <% } %>
+  <% } %>
 
 </form>
 
@@ -49,6 +46,7 @@
 			try {
 				const res = await fetch(`/api/quizes/remove/${groupId}/${quizId}`, {
 					method: 'DELETE', 
+   
 				})
 
 				if (res) {
@@ -75,7 +73,7 @@
     }
 
     try {
-      const res = await fetch(`/api/quizes/set-quiz-form/${quizId}`, { 
+      const res = await fetch(`/api/quizes/set-quiz-form/${groupId}/${quizId}`, { 
         method: 'POST', 
         body: JSON.stringify({ response: response }),
         headers: {'Content-Type': 'application/json'}
@@ -83,9 +81,9 @@
 
       const data = await res.json();
 
-      if (data) {
-        // location.assign('/');
-      }
+      // if (data) {
+      //   location.assign(`/api/quizes/${groupId}`);
+      // }
 
 
     } catch(error) {

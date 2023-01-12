@@ -94,7 +94,8 @@ model Answer {
 }
 
 model Response {
-  id  String @default(uuid()) @unique @id
+  // id  String @default(uuid()) @unique @id
+  @@id([userId, quizId])
   student_response String[]
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
@@ -108,15 +109,15 @@ model Result {
   marks Int
   quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
   quizId String
-  response Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
-  responseId String @unique
+  response Response @relation(fields: [userId, quizId], references: [userId, quizId], onDelete: Cascade) // Multi-field relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+   // responseId String @unique
+  @@unique([userId, quizId]) // one to one needs unique fields
   // quiz id 
   // student Id -> user Id -> might duplicate
   // Group Id
   // marks -> achieved marks after quiz
-  // negativity
   // Before result there must be a response
   // status : pass or fail
 }

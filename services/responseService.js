@@ -1,12 +1,26 @@
 const { Response } = require('../utils/dbInit');
 
 module.exports.fetchResponsesByUserId = async (userId) => {
+    // fetchAllResponsesByUserId
     return await Response.findMany({
         where: {
             userId: userId
         }
     });
 };
+
+// compund key -> userId_quizId
+module.exports.fetchResponseByIds = async (userId, quizId) => {
+    return await Response.findUnique({
+        where: {
+            userId_quizId: {
+                userId: userId,
+                quizId: quizId
+            }
+        }
+    })
+};
+
 
 module.exports.createResponse = async (userId, quizId, response) => {
     return await Response.create({
