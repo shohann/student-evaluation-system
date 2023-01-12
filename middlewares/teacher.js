@@ -3,4 +3,3 @@ module.exports.teacher = async (req, res, next) => {
     next();
 }
 
-// res.render('dashboard', { groups: groups });

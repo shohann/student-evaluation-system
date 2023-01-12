@@ -1,5 +1,14 @@
 const { Quiz } = require('../utils/dbInit');
 
+
+module.exports.fetchQuizById = async (quizId) => {
+    return await Quiz.findUnique({
+        where: {
+            id: quizId
+        }
+    })
+}
+
 module.exports.fetchSingleQuizByQuizId = async (quizId) => {
     return await Quiz.findUnique({
         where: {

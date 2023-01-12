@@ -11,13 +11,12 @@ const { createOptions } = require('../services/optionSevice');
 const { createAnswers } = require('../services/answerService');
 const { createResponse } = require('../services/responseService');
 const { createResult } = require('../services/resultService');
-const { fetchCreatorMembershipStatus } = require('../services/groupMembershipService')
-const { createCategoryByQuizId } = require('../services/categoryService')
+const { fetchCreatorMembershipStatus } = require('../services/groupMembershipService');
 
 module.exports.renderSetQuizForm = async (req, res) => {
     const quizId = req.params.quizId;
     try {
-        const creator = await fetchCreatorMembershipStatus(req.user.id);
+        const { creator } = await fetchCreatorMembershipStatus(req.user.id);
         const quiz = await fetchSingleQuizByQuizId(quizId);
         const questions = quiz.questions;
         res.render('quiz-form', { questions: questions, quizId : quizId, creator: creator});

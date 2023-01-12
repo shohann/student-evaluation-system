@@ -6,7 +6,6 @@ module.exports = {
     Group: prisma.group,
     GroupMembership: prisma.group_membership,
     Quiz: prisma.quiz,
-    Category: prisma.category,
     Question: prisma.question,
     Option: prisma.option,
     Answer: prisma.answer,

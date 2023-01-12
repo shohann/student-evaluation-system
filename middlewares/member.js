@@ -16,14 +16,3 @@ module.exports.member = async (req, res, next) => {
     }
 };
 
-module.exports.membershipType = async (req, res, next) => {
-    const userId = req.user.id;
-    const groupId = req.params.groupId;
-
-    try {
-        
-    } catch (error) {
-        console.log(error);
-        res.send(error);
-    }
-}

@@ -1,14 +1,13 @@
 const { GroupMembership, Group } = require('../utils/dbInit');
 
-module.exports.fetchSingleGroupDetailsById = async (groupId) => {
+module.exports.fetchGroupById = async (groupId) => {
     return await Group.findMany({
         where: {
             id: groupId,
         }
     });
-}
+};
 
-// Create group (Teacher's only)
 module.exports.createGroup = async (groupName) => {
     return  await Group.create({
         data: {
@@ -23,7 +22,7 @@ module.exports.deleteSingleGroupById = async (groupId) => {
             id: groupId
         }
     });
-}
+};
 
 
 

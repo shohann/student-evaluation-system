@@ -1,8 +1,11 @@
 <%- include('partials/header'); -%>
 <br>
 <br>
-<button type="button" class="card-btn" id="delete-quiz-btn" style="display: block;"> Delete </button>
-<!-- Creator only -->
+
+<% if (creator) { %>
+ <button type="button" class="card-btn" id="delete-quiz-btn" style="display: block;"> Delete </button>
+<% } %>
+
 <form id="quiz-form"> 
   <% for(let i = 0; i < questions.length; i++ ){ %>
     <div >
@@ -14,19 +17,16 @@
       <input class="user-input" type="radio" id="<%= questions[i].options[3].id  %>" name="<%= questions[i].id  %>" value="D"><label for="<%= questions[i].options[3].id  %>"><%= questions[i].options[3].txt  %></label>
     </div>
     <br>
-    
   <% } %>
-
   <br>
 
-  <input class="quiz-form-submit" type="submit" value="SUBMIT">
-
-  <!-- Condtion, permission, protected, participatin, valid quiz -->
-
-  <% if (creator.creator === false) { %>
-    <!-- <input class="quiz-form-submit" type="submit" value="SUBMIT"> -->
-  <% } %>
   
+
+  <% if (!creator) { %>
+    <input class="quiz-form-submit" type="submit" value="SUBMIT"> 
+    <!-- Participation & creator , protection -->
+   <% } %>
+
 </form>
 
 
