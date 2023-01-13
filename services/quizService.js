@@ -32,13 +32,13 @@ module.exports.fetchAllQuizesIdByGroupId = async (groupId) => {
     });
 };
 
-module.exports.createQuizByGroupId = async (groupId, name, category) => {
+module.exports.createQuizByGroupId = async (groupId, name, category, totalMarks) => {
     return await Quiz.create({
         data: {
             name: name,
             category_name: category,
-            full_marks: 40,
-            pass_marks: 10,
+            full_marks: totalMarks,
+            pass_marks: Math.ceil(totalMarks/3),
             groupId: groupId
         }
     });

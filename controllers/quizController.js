@@ -137,10 +137,11 @@ module.exports.setQuiz = async (req, res) => {
     const groupId = req.params.groupId;
     const name = req.body.name;
     const category = req.body.category;
+    const totalMarks = req.body.totalMarks; // 
     const quiz = req.body.quiz;
 
     try {
-        const newQuiz = await createQuizByGroupId(groupId, name, category);
+        const newQuiz = await createQuizByGroupId(groupId, name, category, totalMarks);
         const questions = filterQuestionTexts(quiz, newQuiz);
         const createdQuestions = await createQuestions(questions); // no var
         const fetchedQuestions = await fetchQuestionsByQuizId(newQuiz.id);

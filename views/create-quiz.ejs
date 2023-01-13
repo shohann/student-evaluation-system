@@ -101,6 +101,7 @@
     const groupId = window.location.pathname.split('/')[4];
     const quizBody = [];
     const main = {};
+    let totalMarks = 0; // current
     let count = 0;
     let last = 0;
 
@@ -119,6 +120,17 @@
         let question_text = e.target[0].value;
         let answer = e.target[5].value;
         let options = [];
+        ///
+        if (answer === 'A') {
+            totalMarks = totalMarks + parseInt(e.target[6].value);
+        } else if (answer === 'B') {
+            totalMarks = totalMarks + parseInt(e.target[7].value);
+        } else if (answer === 'C') {
+            totalMarks = totalMarks + parseInt(e.target[8].value);
+        } else {
+            totalMarks = totalMarks + parseInt(e.target[9].value);
+        }
+        ///
         for (let i = 1; i <= 4; i++) {
             let option; 
             options.push({
@@ -144,6 +156,20 @@
         let question_text = e.target[0].value;
         let answer = e.target[5].value;
         let options = [];
+ 
+        //
+        if (answer === 'A') {
+            totalMarks = totalMarks + parseInt(e.target[6].value);
+        } else if (answer === 'B') {
+            totalMarks = totalMarks + parseInt(e.target[7].value);
+        } else if (answer === 'C') {
+            totalMarks = totalMarks + parseInt(e.target[8].value);
+        } else {
+            totalMarks = totalMarks + parseInt(e.target[9].value);
+        }
+        // 
+
+        
         for (let i = 1; i <= 4; i++) {
             let option; 
             options.push({
@@ -159,9 +185,11 @@
         });
         main.name = quizNameInput.value;
         main.category = categoryInput.value;
+        main.totalMarks = totalMarks;
         main.quiz = quizBody;
         
         try {
+
             const res = await fetch(`/api/quizes/${groupId}`, { 
                 method: 'POST', 
                 body: JSON.stringify(main),
