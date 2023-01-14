@@ -1,21 +1,29 @@
 const { createResult, fetchResultsByUserId } = require('../services/resultService');
+const { fetchSingleQuizByQuizId } = require('../services/quizService')
 
 module.exports.getUserResultsPage = async (req, res) => {
-    // const userId = req.params.userId;
+    const userId = req.user.id;
     try {
-        res.render('results')
+        const studentResult = await fetchResultsByUserId(userId);
+        res.render('results', { results: studentResult })
     } catch (error) {
         console.log(error);
         res.send(error);
     }
 }
 
-module.exports.getUserResults = async (req, res) => {
-    try {
-        const userId = '1ada1270-9bb2-4774-bc65-a568bf4448d2';
-        const results = await fetchResultsByUserId(userId);
+module.exports.getGroupResultsPage = async (req, res) => {
 
-        res.send(results)
+}
+
+module.exports.getUserResultDetailsPage = async (req, res) => {
+    const userId = req.user.id;
+    const quizId = req.params.quizId
+    try {
+        const quiz = await fetchSingleQuizByQuizId(quizId)
+        console.log(quiz);
+        
+        res.status(200).render('student-result', { quizId: quizId })
     } catch (error) {
         console.log(error);
         res.send(error);
@@ -24,10 +32,3 @@ module.exports.getUserResults = async (req, res) => {
 
 
 
-module.exports.setUserResults = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        console.log(error);
-    }
-};

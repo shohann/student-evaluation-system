@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const { checkCurrentUser } = require('../middlewares/authorize')
-const { setUserResults, getUserResults, getUserResultsPage } = require('../controllers/resultController');
+const { getUserResultDetailsPage, getUserResultsPage } = require('../controllers/resultController');
 
 router.route('/results')
       .get(checkCurrentUser, getUserResultsPage)
 
 router.route('/results/:quizId')
-      .post(setUserResults)
-      .get(getUserResults)
+      .get(checkCurrentUser, getUserResultDetailsPage) // view
  
 module.exports = router;

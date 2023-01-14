@@ -4,10 +4,13 @@ module.exports.fetchResultsByUserId = async (userId) => {
     return await Result.findMany({
         where: {
             userId: userId
+        },
+        include: {
+            quiz: true,
+            response: true
         }
     });
 };
-
 
 module.exports.createResult = async (userId, quizId, responseId, marks) => {
     return await Result.create({

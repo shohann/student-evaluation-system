@@ -10,13 +10,49 @@
 <br>
 
 
+
+<br>
+<br>
+
 <table class="container">
 	<thead>
 		<tr>
-			<th><h1>Sites</h1></th>
-			<th><h1>Views</h1></th>
-			<th><h1>Clicks</h1></th>
-			<th><h1>Average</h1></th>
+			<th><h1>Name</h1></th>
+			<th><h1>Category</h1></th>
+			<th><h1>Total Marks</h1></th>
+			<th><h1>Obtained Marks</h1></th>
+			<th><h1>Details</h1></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% if (results.length > 0) { %>
+			<% for(let i = 0; i < results.length; i++ ){ %>
+				<tr>
+					<td><%= results[i].quiz.name %></td>
+					<td><%= results[i].quiz.category_name %> TEST</td>
+					<td><%= results[i].quiz.full_marks %></td>
+					<td><%= results[i].marks %></td>
+					<td><a style="border-bottom: 1px solid white;" href="/api/results/<%= results[i].quiz.id %>">View</a></td>
+				</tr>
+			<% } %>
+		<% } else { %>
+				<!-- <p>No results</p> -->
+		<% } %>
+	</tbody>
+</table>
+
+<br>
+<br>
+
+
+<!-- <table class="container">
+	<thead>
+		<tr>
+			<th><h1>Name</h1></th>
+			<th><h1>Category</h1></th>
+			<th><h1>Total Marks</h1></th>
+			<th><h1>Obtained Marks</h1></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -57,7 +93,7 @@
 			<td>00:31:52</td>
 		</tr>
 	</tbody>
-</table>
+</table> -->
 
 
 <%- include('partials/footer'); -%>

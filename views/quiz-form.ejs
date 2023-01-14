@@ -81,9 +81,9 @@
 
       const data = await res.json();
 
-      // if (data) {
-      //   location.assign(`/api/quizes/${groupId}`);
-      // }
+      if (data) {
+        location.assign(`/api/quizes/${groupId}`);
+      }
 
 
     } catch(error) {
