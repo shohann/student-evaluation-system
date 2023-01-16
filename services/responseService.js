@@ -21,6 +21,31 @@ module.exports.fetchResponseByIds = async (userId, quizId) => {
     })
 };
 
+// Student result page
+module.exports.fetchQuizResponseByIds = async (userId, quizId) => {
+    return await Response.findUnique({
+        where: {
+            userId_quizId: {
+                userId: userId,
+                quizId: quizId
+            }
+        },
+        include: {
+            quiz: {
+                include: {
+                    questions: {
+                        include: {
+                            options: true
+                        }
+                    },
+                    answers: true
+                },
+                
+            }
+        }
+    })
+}
+
 
 module.exports.createResponse = async (userId, quizId, response) => {
     return await Response.create({

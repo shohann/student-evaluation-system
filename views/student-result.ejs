@@ -1,5 +1,25 @@
 <%- include('partials/header'); -%>
 
-<p><%= quizId %></p>
+<div class="response-card ">
+    <div style="border-bottom: 1px solid white; padding-bottom: 5px;">
+        <% for(let i = 0; i < responses.length; i++ ){ %>
+            <h4><%= i + 1 %>. <%= questions[i].question_text %></h4>
+            <div style="display: flex; gap: 15px;padding: 10px;">
+                <p><%= questions[i].options[0].option %>.<%= questions[i].options[0].txt %> </p>
+                <p><%= questions[i].options[1].option %>.<%= questions[i].options[1].txt %> </p>
+                <p><%= questions[i].options[2].option %>.<%= questions[i].options[2].txt %> </p>
+                <p><%= questions[i].options[3].option %>.<%= questions[i].options[3].txt %> </p>
+            </div>
+            <p>Answer: <%= answers[i].answer_text%></p>
+            <p>Response: <%= responses[i] %></p>
+            <p>Verdict: <%= verdicts[i] %></p>
+            <p>Mark: <%= marks[i] %> </p>
+            
+            
+
+        <% } %>  
+    </div>
+</div>
+
 
 <%- include('partials/footer'); -%>

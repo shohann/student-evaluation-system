@@ -33,7 +33,7 @@
 					<td><%= results[i].quiz.category_name %> TEST</td>
 					<td><%= results[i].quiz.full_marks %></td>
 					<td><%= results[i].marks %></td>
-					<td><a style="border-bottom: 1px solid white;" href="/api/results/<%= results[i].quiz.id %>">View</a></td>
+					<td><a style="border-bottom: 1px solid white;" href="/api/responses/<%= results[i].quiz.id %>">View</a></td>
 				</tr>
 			<% } %>
 		<% } else { %>

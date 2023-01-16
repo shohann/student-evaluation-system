@@ -403,3 +403,13 @@ input[type="text"]:focus {
   background: #44475a;
 }
 
+/* Response */
+
+.response-card {
+  width: 1250px;
+  margin: 0 auto;
+  background: #44475a;
+  padding: 55px;
+  border-radius: 10px;
+}
+

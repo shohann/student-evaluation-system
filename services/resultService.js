@@ -7,10 +7,33 @@ module.exports.fetchResultsByUserId = async (userId) => {
         },
         include: {
             quiz: true,
-            response: true
+            // response: true //
         }
     });
 };
+
+// Test
+// module.exports.fetchResultByQuizId = async (quizId) => {
+//     return await Result.findMany({
+//         where: {
+//             quizId: quizId
+//         },
+//         include: {
+//             response: true,
+//             quiz: {
+//                 include: {
+//                     questions: {
+//                         include: {
+//                             options: true
+//                         }
+//                     },
+//                     answers: true
+//                 },
+                
+//             }
+//         }
+//     })
+// }
 
 module.exports.createResult = async (userId, quizId, responseId, marks) => {
     return await Result.create({

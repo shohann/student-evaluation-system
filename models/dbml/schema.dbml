@@ -5,6 +5,7 @@
 Table User {
   id String [pk, unique]
   email String [unique, not null]
+  password String [not null]
   name String
   role Role [not null, default: 'STUDENT']
   group_membership Group_membership [not null]
@@ -36,21 +37,13 @@ Table Quiz {
   name String [not null]
   full_marks Int [not null]
   pass_marks Int [not null]
-  negative_marks Int
+  category_name Category_name [not null, default: 'ACHIEVEMENT']
   questions Question [not null]
   answers Answer [not null]
   result Result [not null]
   response Response [not null]
-  category Category [not null]
   group Group [not null]
   groupId String [not null]
-}
-
-Table Category {
-  id String [pk, unique]
-  category_name Category_name [not null, default: 'ACHIEVEMENT']
-  quiz Quiz [not null]
-  quizId String [not null]
 }
 
 Table Question {
@@ -66,6 +59,7 @@ Table Option {
   id String [pk, unique]
   option String [not null]
   txt String [not null]
+  mark Int [not null]
   question Question [not null]
   questionId String [not null]
 }
@@ -80,13 +74,16 @@ Table Answer {
 }
 
 Table Response {
-  id String [pk, unique]
   student_response String[] [not null]
   user User [not null]
   userId String [not null]
   quiz Quiz [not null]
   quizId String [not null]
   result Result
+
+  indexes {
+    (userId, quizId) [pk]
+  }
 }
 
 Table Result {
@@ -95,45 +92,46 @@ Table Result {
   quiz Quiz [not null]
   quizId String [not null]
   response Response [not null]
-  responseId String [unique, not null]
   user User [not null]
   userId String [not null]
+
+  indexes {
+    (userId, quizId) [unique]
+  }
 }
 
 Enum Category_name {
   ACHIEVEMENT
   IQ
-  APTITUDE
+  PERSONALITY
+  PSYCHOLOGICAL
 }
 
 Enum Role {
   STUDENT
-  ADMIN
   TEACHER
 }
 
-Ref: Group_membership.userId > User.id
+Ref: Group_membership.userId > User.id [delete: Cascade]
 
-Ref: Group_membership.groupId > Group.id
+Ref: Group_membership.groupId > Group.id [delete: Cascade]
 
-Ref: Quiz.groupId > Group.id
+Ref: Quiz.groupId > Group.id [delete: Cascade]
 
-Ref: Category.quizId > Quiz.id
+Ref: Question.quizId > Quiz.id [delete: Cascade]
 
-Ref: Question.quizId > Quiz.id
+Ref: Option.questionId > Question.id [delete: Cascade]
 
-Ref: Option.questionId > Question.id
+Ref: Answer.questionId - Question.id [delete: Cascade]
 
-Ref: Answer.questionId - Question.id
+Ref: Answer.quizId > Quiz.id [delete: Cascade]
 
-Ref: Answer.quizId > Quiz.id
+Ref: Response.userId > User.id [delete: Cascade]
 
-Ref: Response.userId > User.id
+Ref: Response.quizId > Quiz.id [delete: Cascade]
 
-Ref: Response.quizId > Quiz.id
+Ref: Result.quizId > Quiz.id [delete: Cascade]
 
-Ref: Result.quizId > Quiz.id
+Ref: Result.(userId, quizId) - Response.(userId, quizId) [delete: Cascade]
 
-Ref: Result.responseId - Response.id
-
-Ref: Result.userId > User.id
+Ref: Result.userId > User.id [delete: Cascade]

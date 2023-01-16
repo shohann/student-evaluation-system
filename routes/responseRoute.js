@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const { setUserResponses, getUserResponses } = require('../controllers/responseController')
+const { checkCurrentUser } = require('../middlewares/authorize');
+const {   getUserResponseDetailsPage } = require('../controllers/responseController')
 
 router.route('/responses/:quizId')
-      .post(setUserResponses)
-      .get(getUserResponses)
+      .get(checkCurrentUser ,getUserResponseDetailsPage)
+
 
 module.exports = router;
