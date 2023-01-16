@@ -28,6 +28,13 @@ module.exports.fetchAllQuestionsByQuizId = async (quizId) => {
 
 
 
+
+
+
+
+
+
+
 // app.post('/db/quiz/add/:quizId', async (req, res) => {
 //     const quizId = req.params.quizId;
 //     const quiz = req.body.quiz;

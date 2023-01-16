@@ -71,6 +71,20 @@ module.exports.fetchMembershipById = async (userId, groupId) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // deleteSingleStudentMembership('1ada1270-9bb2-4774-bc65-a568bf4448d2','25e5ed93-bf56-4a6d-b9e0-7aaef0c773de')
 
 // const deleteAllGroupMembershipByGroupId = async (groupId) => {

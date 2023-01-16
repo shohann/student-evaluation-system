@@ -13,8 +13,8 @@ router.route('/quizes/remove/:groupId/:quizId')
       .delete(checkCurrentUser, creator, removeQuiz)
 
 router.route('/quizes/set-quiz-form/:groupId/:quizId')
-      .get(checkCurrentUser, renderSetQuizForm) // problem with student participation in admin mode
-      .post(checkCurrentUser, studentParticipation, setQuizForm); // participation(student) + protection(teacher entry denied)
+      .get(checkCurrentUser, renderSetQuizForm) 
+      .post(checkCurrentUser, studentParticipation, setQuizForm); 
 
 router.route('/quizes/set-quizes/:groupId')
       .get(checkCurrentUser, renderSetQuiz);
@@ -22,4 +22,15 @@ router.route('/quizes/set-quizes/:groupId')
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
+// router.route('/quizes/set-quiz-form/:groupId/:quizId')
+//       .get(checkCurrentUser, renderSetQuizForm) // problem with student participation in admin mode
+//       .post(checkCurrentUser, studentParticipation, setQuizForm); // participation(student) + protection(teacher entry denied)
 

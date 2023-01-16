@@ -25,6 +25,13 @@ module.exports.fetchResultsByQuizId = async (quizId) => {
     })
 }
 
+
+
+
+
+
+
+
 // Test
 // module.exports.fetchResultByQuizId = async (quizId) => {
 //     return await Result.findMany({
