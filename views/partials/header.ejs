@@ -13,7 +13,11 @@
         <!-- <li>Welcome, <%= user.email %></li> -->
         <li><a href="/">Home</a></li>
         <li><a href="/api/show-groups">Groups</a></li>
-        <li><a href="/api/results">Results</a></li>
+
+        <% if (user.role !== 'TEACHER') { %>
+          <li><a href="/api/results">Results</a></li>
+        <% } %>
+
         <li><a href="/api/users/profile">Profile</a></li>
         <li><a href="/api/logout" id="logout-btn">Log out</a></li>
       <% } else { %>

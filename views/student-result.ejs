@@ -1,7 +1,7 @@
 <%- include('partials/header'); -%>
 
 <div class="response-card ">
-    <div style="border-bottom: 1px solid white; padding-bottom: 5px;">
+    <div style=" padding-bottom: 5px;">
         <% for(let i = 0; i < responses.length; i++ ){ %>
             <h4><%= i + 1 %>. <%= questions[i].question_text %></h4>
             <div style="display: flex; gap: 15px;padding: 10px;">
@@ -13,13 +13,11 @@
             <p>Answer: <%= answers[i].answer_text%></p>
             <p>Response: <%= responses[i] %></p>
             <p>Verdict: <%= verdicts[i] %></p>
-            <p>Mark: <%= marks[i] %> </p>
-            
-            
-
-        <% } %>  
+            <p style="border-bottom: 1px solid white; padding-bottom: 7px;">Mark: <%= marks[i] %> </p>
+            <br>
+        <% } %> 
+         
     </div>
 </div>
-
 
 <%- include('partials/footer'); -%>

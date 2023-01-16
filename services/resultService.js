@@ -12,6 +12,19 @@ module.exports.fetchResultsByUserId = async (userId) => {
     });
 };
 
+
+module.exports.fetchResultsByQuizId = async (quizId) => {
+    return await Result.findMany({
+        where: {
+            quizId: quizId
+        },
+        include: {
+            user: true,
+            quiz: true
+        }
+    })
+}
+
 // Test
 // module.exports.fetchResultByQuizId = async (quizId) => {
 //     return await Result.findMany({

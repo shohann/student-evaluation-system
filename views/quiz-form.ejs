@@ -3,7 +3,13 @@
 <br>
 
 <% if (creator) { %>
- <button type="button" class="card-btn" id="delete-quiz-btn" style="display: block;"> Delete </button>
+
+  <div style="display: flex; padding: 10px;">
+    <button type="button" class="card-btn" id="delete-quiz-btn" style="display: block;"> Delete </button>
+    <button  type="button" class="card-btn" id="join-btn" style="display: block;"> <a href="/api/results/<%= quizId %>">Results</a> </button>
+  </div>
+
+ 
 <% } %>
 
 <form id="quiz-form"> 

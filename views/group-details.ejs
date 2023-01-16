@@ -33,7 +33,7 @@
 			  <h2 ><%= quiz.name %></h2>
 			  <br>
 			  <h3>Category: <%= quiz.category_name %> TEST </h3>
-			  <h3>Total Marks: 50</h3>
+			  <h3>Total Marks: <%= quiz.full_marks %></h3>
 			<div class="verticle-btn">
 				<button><a href="/api/quizes/set-quiz-form/<%= groupId %>/<%= quiz.id %>">Open</a></button>
 			<!-- quizId -->

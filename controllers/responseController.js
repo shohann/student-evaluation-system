@@ -59,3 +59,21 @@ module.exports.getUserResponseDetailsPage = async (req, res) => {
     }
 };
 
+
+module.exports.getMemberResponseDetailsPage = async (req, res) => {
+    const userId = req.params.userId;
+    const quizId = req.params.quizId;
+    try {
+        const responses = await fetchQuizResponseByIds(userId, quizId);
+        const studentResponses = responses.student_response;
+        const questions = responses.quiz.questions;
+        const answers = responses.quiz.answers;
+        const { marks, verdicts } = getResponseStatus(studentResponses, questions, answers);
+
+        res.status(200).render('student-result', { questions: questions, answers: answers, responses: studentResponses ,marks: marks, verdicts: verdicts });
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+};
+
